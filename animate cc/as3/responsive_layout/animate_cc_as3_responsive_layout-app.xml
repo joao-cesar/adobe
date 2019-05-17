@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- 
+	Usage:
+
+	To localize the description, use the following format for the description element.
+	<description>
+	<text xml:lang="en">English App description goes here</text>
+	<text xml:lang="fr">French App description goes here</text>
+	<text xml:lang="ja">Japanese App description goes here</text>
+	</description>
+
+	To localize the name, use the following format for the name element.
+	<name>
+	<text xml:lang="en">English App name goes here</text>
+	<text xml:lang="fr">French App name goes here</text>
+	<text xml:lang="ja">Japanese App name goes here</text>
+	</name>
+-->
+<application xmlns="http://ns.adobe.com/air/application/32.0">
+  <id>com.minifliper.responsivelayout</id>
+  <versionNumber>1.0</versionNumber>
+  <filename>animate_cc_as3_responsive_layout</filename>
+  <description/>
+  <name>animate_cc_as3_responsive_layout</name>
+  <copyright/>
+  <initialWindow>
+    <content>animate_cc_as3_responsive_layout.swf</content>
+    <systemChrome>standard</systemChrome>
+    <transparent>false</transparent>
+    <visible>true</visible>
+    <fullScreen>true</fullScreen>
+    
+    <renderMode>auto</renderMode>
+    <autoOrients>true</autoOrients></initialWindow>
+  <icon/>
+  <customUpdateUI>false</customUpdateUI>
+  <allowBrowserInvocation>false</allowBrowserInvocation>
+  <versionLabel/>
+  <android>
+    <manifestAdditions><![CDATA[<manifest>
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+</manifest>]]></manifestAdditions>
+  </android>
+</application>
