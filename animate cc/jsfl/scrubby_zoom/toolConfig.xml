@@ -1,0 +1,51 @@
+﻿<group>
+	<tool name = "arrow"/>
+	<tool name = "bezierSelect"/>
+	<tool name = "freeXform" >
+		<tool name = "fillXform"/>
+	</tool>
+	<tool name = "ThreeDRotate" >
+		<tool name = "ThreeDXform"/>
+	</tool>
+	<tool name = "lasso">
+		<tool name = "lassoPoly"/>
+		<tool name = "magicWand"/>
+	</tool>
+	<separator/>
+	<tool name = "pen" >
+		<tool name = "penplus"/>
+		<tool name = "penminus"/>
+		<tool name = "penmodify"/>
+	</tool>
+	<tool name = "text"/>
+	<tool name = "line"/>
+	<tool name = "rect" >
+		<tool name = "rectPrimitive"/>
+	</tool>
+	<tool name = "oval">
+		<tool name = "ovalPrimitive"/>
+	</tool>
+	<tool name = "polystar"/>
+	<tool name = "pencil"/>
+    <tool name = "paintBrush"/>
+	<tool name = "brush"/>
+	<separator/>
+	<tool name = "ikbridgelink">
+		<tool name = "rig"/>
+	</tool>
+	<tool name = "bucket"/>
+	<tool name = "inkBottle"/>
+	<tool name = "eyeDropper"/>
+	<tool name = "eraser"/>
+	<tool name = "width"/>
+	<tool name = "puppet"/>
+	<separator/>
+	<tool name = "camera"/>
+	<tool name = "hand">
+        <tool name = "stageRotation"/>
+		<tool name = "timeScrub"/>
+    </tool>
+	<tool name = "magnifier">
+		<tool name = "scrubbyZoom"/>
+	</tool>
+</group>
