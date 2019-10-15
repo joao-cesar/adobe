@@ -1,5 +1,0 @@
-﻿<properties>
-	<property name="Zoom step: " variable="step" min="0" max="1" defaultValue=".5"  type="Double"/> 
-</properties>
-
-
