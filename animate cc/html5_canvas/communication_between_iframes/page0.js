@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"animate_cc_html5_mouse_wheel_navigation_02_atlas_", frames: [[0,0,205,205]]}
+		{name:"page0_atlas_", frames: [[0,0,16,16]]}
 ];
 
 
@@ -11,8 +11,8 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedTexturedBitmap_1 = function() {
-	this.initialize(ss["animate_cc_html5_mouse_wheel_navigation_02_atlas_"]);
+(lib.CachedBmp_3 = function() {
+	this.initialize(ss["page0_atlas_"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
 
@@ -22,107 +22,99 @@ lib.ssMetadata = [
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_1
-	this.instance = new lib.CachedTexturedBitmap_1();
-	this.instance.parent = this;
-	this.instance.setTransform(-51.25,-51.25,0.5,0.5);
+	this.instance = new lib.CachedBmp_3();
+	this.instance.setTransform(-8,-8);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
+	this._renderFirstFrame();
+
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(-51.2,-51.2,102.5,102.5);
+p.nominalBounds = new cjs.Rectangle(-8,-8,16,16);
 
 
 // stage content:
-(lib.animate_cc_html5_mouse_wheel_navigation_02 = function(mode,startPosition,loop) {
+(lib.page0 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// timeline functions:
 	this.frame_0 = function() {
-		var that = this;
-		this.targetTimeline = this;
-		this.targetTimeline.loop = true;
-		this.targetTimeline.force = 40;
-		this.targetTimeline.friction = 0.9;
-		this.targetTimeline.minFrame = 0; // set the start range value here
-		this.targetTimeline.maxFrame = this.targetTimeline.totalFrames - 1; // set the end range value here
+		var root = this;
 		
-		this.loopClamp = function(value, min, max)
+		root.advanceTimeline = function(offset)
 		{
-			if (value < min)
-				return max;
-			
-			if (value > max)
-				return min;
-				
-			return value;
+			root.gotoAndStop(root.currentFrame + offset);
 		};
 		
-		this.clamp = function(value, min, max)
-		{
-			if (value < min)
-				return min;
-			
-			if (value > max)
-				return max;
-				
-			return value;
-		};
-		
-		this.onMouseWheel = function (e)
-		{
-			e.preventDefault();
-		
-			var evt = window.event || e;
-			var delta = Math.max(-1, Math.min(1, evt.wheelDelta || -evt.detail));
-		
-			that.targetTimeline.speed = delta * that.force;
-		};
-		
-		this.tickHandler = function (e)
-		{
-			var clamp = that.targetTimeline.loop ? "loopClamp" : "clamp";
-			
-			that.targetTimeline.speed *= that.targetTimeline.friction;
-			that.targetTimeline.gotoAndStop(that[clamp](that.targetTimeline.currentFrame + that.targetTimeline.speed, that.targetTimeline.minFrame, that.targetTimeline.maxFrame));
-		};
-		
-		this.start = function ()
-		{
-			canvas.addEventListener('mousewheel', that.onMouseWheel.bind(that));
-			canvas.addEventListener('DOMMouseScroll', that.onMouseWheel.bind(that));
-			createjs.Ticker.on("tick", that.tickHandler);
-		};
-		
-		if (!this.hasStarted)
-		{
-			this.gotoAndStop(this.targetTimeline.minFrame);
-			this.start();
-			this.hasStarted = true;
-		}
+		root.stop();
 	}
 
 	// actions tween:
-	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(550));
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(10));
 
-	// animation
+	// rec
 	this.instance = new lib.Rec("single",0);
-	this.instance.parent = this;
-	this.instance.setTransform(-51.25,200);
+	this.instance.setTransform(28,200);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).to({x:601.25},549).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({x:82.85},0).wait(1).to({x:137.7},0).wait(1).to({x:192.55},0).wait(1).to({x:247.4},0).wait(1).to({x:302.25},0).wait(1).to({x:357.1},0).wait(1).to({x:411.95},0).wait(1).to({x:466.8},0).wait(1).to({x:521.65},0).wait(1));
+
+	// recs
+	this.instance_1 = new lib.Rec("single",0);
+	this.instance_1.setTransform(521.65,200);
+	this.instance_1.alpha = 0.1016;
+
+	this.instance_2 = new lib.Rec("single",0);
+	this.instance_2.setTransform(466.8,200);
+	this.instance_2.alpha = 0.1016;
+
+	this.instance_3 = new lib.Rec("single",0);
+	this.instance_3.setTransform(411.95,200);
+	this.instance_3.alpha = 0.1016;
+
+	this.instance_4 = new lib.Rec("single",0);
+	this.instance_4.setTransform(357.1,200);
+	this.instance_4.alpha = 0.1016;
+
+	this.instance_5 = new lib.Rec("single",0);
+	this.instance_5.setTransform(302.25,200);
+	this.instance_5.alpha = 0.1016;
+
+	this.instance_6 = new lib.Rec("single",0);
+	this.instance_6.setTransform(247.4,200);
+	this.instance_6.alpha = 0.1016;
+
+	this.instance_7 = new lib.Rec("single",0);
+	this.instance_7.setTransform(192.55,200);
+	this.instance_7.alpha = 0.1016;
+
+	this.instance_8 = new lib.Rec("single",0);
+	this.instance_8.setTransform(137.7,200);
+	this.instance_8.alpha = 0.1016;
+
+	this.instance_9 = new lib.Rec("single",0);
+	this.instance_9.setTransform(82.85,200);
+	this.instance_9.alpha = 0.1016;
+
+	this.instance_10 = new lib.Rec("single",0);
+	this.instance_10.setTransform(28,200);
+	this.instance_10.alpha = 0.1016;
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_10},{t:this.instance_9},{t:this.instance_8},{t:this.instance_7},{t:this.instance_6},{t:this.instance_5},{t:this.instance_4},{t:this.instance_3},{t:this.instance_2},{t:this.instance_1}]}).wait(10));
+
+	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(172.5,348.8,480,-97.5);
+p.nominalBounds = new cjs.Rectangle(295,392,234.70000000000005,-184);
 // library properties:
 lib.properties = {
-	id: '27DE2D0218DF18419436DFD343CB7F5C',
+	id: 'F5DC15BAD22F4645A7C8DCF99DB85BFF',
 	width: 550,
 	height: 400,
-	fps: 60,
-	color: "#CCCCCC",
+	fps: 24,
+	color: "#111111",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/animate_cc_html5_mouse_wheel_navigation_02_atlas_.png?1571961918106", id:"animate_cc_html5_mouse_wheel_navigation_02_atlas_"}
+		{src:"images/page0_atlas_.png", id:"page0_atlas_"}
 	],
 	preloads: []
 };
@@ -133,7 +125,7 @@ lib.properties = {
 
 (lib.Stage = function(canvas) {
 	createjs.Stage.call(this, canvas);
-}).prototype = p = new createjs.Stage();
+}).prototype = p = new createjs.StageGL();
 
 p.setAutoPlay = function(autoPlay) {
 	this.tickEnabled = autoPlay;
@@ -160,8 +152,8 @@ an.bootstrapCallback=function(fnCallback) {
 };
 
 an.compositions = an.compositions || {};
-an.compositions['27DE2D0218DF18419436DFD343CB7F5C'] = {
-	getStage: function() { return exportRoot.getStage(); },
+an.compositions['F5DC15BAD22F4645A7C8DCF99DB85BFF'] = {
+	getStage: function() { return exportRoot.stage; },
 	getLibrary: function() { return lib; },
 	getSpriteSheet: function() { return ss; },
 	getImages: function() { return img; }

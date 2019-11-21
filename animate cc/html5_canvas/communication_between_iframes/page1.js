@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"animate_cc_html5_mouse_wheel_navigation_02_atlas_", frames: [[0,0,205,205]]}
+		{name:"page1_atlas_", frames: [[0,0,60,40]]}
 ];
 
 
@@ -11,118 +11,104 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedTexturedBitmap_1 = function() {
-	this.initialize(ss["animate_cc_html5_mouse_wheel_navigation_02_atlas_"]);
+(lib.CachedBmp_2 = function() {
+	this.initialize(ss["page1_atlas_"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.Rec = function(mode,startPosition,loop) {
+(lib.ButtonRec = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_1
-	this.instance = new lib.CachedTexturedBitmap_1();
-	this.instance.parent = this;
-	this.instance.setTransform(-51.25,-51.25,0.5,0.5);
+	this.instance = new lib.CachedBmp_2();
+	this.instance.setTransform(-30,-20);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
+	this._renderFirstFrame();
+
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(-51.2,-51.2,102.5,102.5);
+p.nominalBounds = new cjs.Rectangle(-30,-20,60,40);
+
+
+(lib.Button = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// text
+	this.text = new cjs.Text("CLICK ME", "10px 'Arial'", "#FFFFFF");
+	this.text.textAlign = "center";
+	this.text.lineHeight = 13;
+	this.text.parent = this;
+	this.text.setTransform(0,-5.55);
+
+	this.timeline.addTween(cjs.Tween.get(this.text).wait(2).to({font:"9px 'Arial'",lineHeight:12.05,lineWidth:43},0).to({_off:true},1).wait(1));
+
+	// rec
+	this.instance = new lib.ButtonRec("single",0);
+	this.instance.alpha = 0.8984;
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({alpha:1},0).wait(1).to({scaleX:0.95,scaleY:0.95},0).to({_off:true},1).wait(1));
+
+	// hit
+	this.instance_1 = new lib.ButtonRec("single",0);
+	this.instance_1._off = true;
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(3).to({_off:false},0).wait(1));
+
+	this._renderFirstFrame();
+
+}).prototype = p = new cjs.MovieClip();
+p.nominalBounds = new cjs.Rectangle(-30,-20,60,40);
 
 
 // stage content:
-(lib.animate_cc_html5_mouse_wheel_navigation_02 = function(mode,startPosition,loop) {
+(lib.page1 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
+	this.isSingleFrame = false;
 	// timeline functions:
 	this.frame_0 = function() {
-		var that = this;
-		this.targetTimeline = this;
-		this.targetTimeline.loop = true;
-		this.targetTimeline.force = 40;
-		this.targetTimeline.friction = 0.9;
-		this.targetTimeline.minFrame = 0; // set the start range value here
-		this.targetTimeline.maxFrame = this.targetTimeline.totalFrames - 1; // set the end range value here
-		
-		this.loopClamp = function(value, min, max)
-		{
-			if (value < min)
-				return max;
-			
-			if (value > max)
-				return min;
-				
-			return value;
-		};
-		
-		this.clamp = function(value, min, max)
-		{
-			if (value < min)
-				return min;
-			
-			if (value > max)
-				return max;
-				
-			return value;
-		};
-		
-		this.onMouseWheel = function (e)
-		{
-			e.preventDefault();
-		
-			var evt = window.event || e;
-			var delta = Math.max(-1, Math.min(1, evt.wheelDelta || -evt.detail));
-		
-			that.targetTimeline.speed = delta * that.force;
-		};
-		
-		this.tickHandler = function (e)
-		{
-			var clamp = that.targetTimeline.loop ? "loopClamp" : "clamp";
-			
-			that.targetTimeline.speed *= that.targetTimeline.friction;
-			that.targetTimeline.gotoAndStop(that[clamp](that.targetTimeline.currentFrame + that.targetTimeline.speed, that.targetTimeline.minFrame, that.targetTimeline.maxFrame));
-		};
-		
-		this.start = function ()
-		{
-			canvas.addEventListener('mousewheel', that.onMouseWheel.bind(that));
-			canvas.addEventListener('DOMMouseScroll', that.onMouseWheel.bind(that));
-			createjs.Ticker.on("tick", that.tickHandler);
-		};
-		
-		if (!this.hasStarted)
-		{
-			this.gotoAndStop(this.targetTimeline.minFrame);
-			this.start();
-			this.hasStarted = true;
+		if(this.isSingleFrame) {
+			return;
 		}
+		if(this.totalFrames == 1) {
+			this.isSingleFrame = true;
+		}
+		var root = this;
+		
+		root.button.on("click", function(e)
+		{
+			var event = new CustomEvent("advanceTimeline", { detail: { offset: 1 } } );
+			window.parent.document.dispatchEvent(event);
+		});
 	}
 
 	// actions tween:
-	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(550));
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1));
 
-	// animation
-	this.instance = new lib.Rec("single",0);
-	this.instance.parent = this;
-	this.instance.setTransform(-51.25,200);
+	// button
+	this.button = new lib.Button();
+	this.button.setTransform(275,200);
+	new cjs.ButtonHelper(this.button, 0, 1, 2, false, new lib.Button(), 3);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).to({x:601.25},549).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.button).wait(1));
+
+	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(172.5,348.8,480,-97.5);
+p.nominalBounds = new cjs.Rectangle(520,380,-215,-160);
 // library properties:
 lib.properties = {
-	id: '27DE2D0218DF18419436DFD343CB7F5C',
+	id: 'F5DC15BAD22F4645A7C8DCF99DB85BFF',
 	width: 550,
 	height: 400,
-	fps: 60,
-	color: "#CCCCCC",
+	fps: 24,
+	color: "#F2F2F2",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/animate_cc_html5_mouse_wheel_navigation_02_atlas_.png?1571961918106", id:"animate_cc_html5_mouse_wheel_navigation_02_atlas_"}
+		{src:"images/page1_atlas_.png", id:"page1_atlas_"}
 	],
 	preloads: []
 };
@@ -133,7 +119,7 @@ lib.properties = {
 
 (lib.Stage = function(canvas) {
 	createjs.Stage.call(this, canvas);
-}).prototype = p = new createjs.Stage();
+}).prototype = p = new createjs.StageGL();
 
 p.setAutoPlay = function(autoPlay) {
 	this.tickEnabled = autoPlay;
@@ -160,8 +146,8 @@ an.bootstrapCallback=function(fnCallback) {
 };
 
 an.compositions = an.compositions || {};
-an.compositions['27DE2D0218DF18419436DFD343CB7F5C'] = {
-	getStage: function() { return exportRoot.getStage(); },
+an.compositions['F5DC15BAD22F4645A7C8DCF99DB85BFF'] = {
+	getStage: function() { return exportRoot.stage; },
 	getLibrary: function() { return lib; },
 	getSpriteSheet: function() { return ss; },
 	getImages: function() { return img; }
