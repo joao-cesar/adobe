@@ -5,3 +5,6 @@
 - Going to Commands > Run Command....
 3 - Select the font face in the dropdown menu;
 4 - Click "OK";
+
+@author JC (joaocesar.design@gmail.com)
+You can distribute this code/panel, use it in any commercial or personal projects, improve it, fix it, or make any other change you wish. It is totally free.
