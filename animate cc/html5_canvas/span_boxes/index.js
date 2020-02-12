@@ -11,7 +11,7 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_1 = function() {
+(lib.CachedBmp_16 = function() {
 	this.initialize(ss["index_atlas_"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
@@ -120,7 +120,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,0,0);
 	this.timeline.addTween(cjs.Tween.get(this.container).wait(1));
 
 	// shape
-	this.instance = new lib.CachedBmp_1();
+	this.instance = new lib.CachedBmp_16();
 	this.instance.setTransform(-24,-24);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
