@@ -2,19 +2,10 @@
 
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
-lib.ssMetadata = [
-		{name:"index_atlas_", frames: [[0,0,48,48]]}
-];
+lib.ssMetadata = [];
 
 
 // symbols:
-
-
-
-(lib.CachedBmp_85 = function() {
-	this.initialize(ss["index_atlas_"]);
-	this.gotoAndStop(0);
-}).prototype = p = new cjs.Sprite();
 // helper functions:
 
 function mc_symbol_clone() {
@@ -34,14 +25,28 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	}
 
 
+(lib.Rec1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#FFFFFF").s().p("A2fDwIAAnfMAs/AAAIAAHfg");
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+	this._renderFirstFrame();
+
+}).prototype = getMCSymbolPrototype(lib.Rec1, new cjs.Rectangle(-144,-24,288,48), null);
+
+
 (lib.Rec = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_1
-	this.instance = new lib.CachedBmp_85();
-	this.instance.setTransform(-24,-24);
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#FFFFFF").s().p("AjvDwIAAnfIHfAAIAAHfg");
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 	this._renderFirstFrame();
 
@@ -98,6 +103,10 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 			
 			root.rec8.x = column2;
 			root.rec8.y = row2;
+			
+			root.rec9.scaleX = root.rec9.scaleY = window.innerWidth / lib.properties.width;
+			root.rec9.x = column1;
+			root.rec9.y = bounds.height * 0.5 + (root.rec4.y - root.rec1.y) * 0.5;
 		};
 		
 		root.resizeCanvas = function(e)
@@ -128,6 +137,10 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1));
 
 	// ui
+	this.rec9 = new lib.Rec1();
+	this.rec9.name = "rec9";
+	this.rec9.setTransform(291.6,105.05);
+
 	this.rec8 = new lib.Rec();
 	this.rec8.name = "rec8";
 	this.rec8.setTransform(526,376);
@@ -146,7 +159,7 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 
 	this.rec4 = new lib.Rec();
 	this.rec4.name = "rec4";
-	this.rec4.setTransform(291.6,186.15);
+	this.rec4.setTransform(291.6,186.1);
 
 	this.rec3 = new lib.Rec();
 	this.rec3.name = "rec3";
@@ -164,7 +177,7 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.rec0.name = "rec0";
 	this.rec0.setTransform(24,24);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.rec0},{t:this.rec1},{t:this.rec2},{t:this.rec3},{t:this.rec4},{t:this.rec5},{t:this.rec6},{t:this.rec7},{t:this.rec8}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.rec0},{t:this.rec1},{t:this.rec2},{t:this.rec3},{t:this.rec4},{t:this.rec5},{t:this.rec6},{t:this.rec7},{t:this.rec8},{t:this.rec9}]}).wait(1));
 
 	this._renderFirstFrame();
 
@@ -178,9 +191,7 @@ lib.properties = {
 	fps: 60,
 	color: "#0B0B0B",
 	opacity: 1.00,
-	manifest: [
-		{src:"images/index_atlas_.png", id:"index_atlas_"}
-	],
+	manifest: [],
 	preloads: []
 };
 
