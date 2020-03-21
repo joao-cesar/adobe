@@ -11,28 +11,28 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedTexturedBitmap_11 = function() {
+(lib.CachedBmp_21 = function() {
 	this.initialize(ss["index_atlas_"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedTexturedBitmap_12 = function() {
+(lib.CachedBmp_20 = function() {
 	this.initialize(ss["index_atlas_"]);
 	this.gotoAndStop(1);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedTexturedBitmap_13 = function() {
+(lib.CachedBmp_19 = function() {
 	this.initialize(ss["index_atlas_"]);
 	this.gotoAndStop(2);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedTexturedBitmap_7 = function() {
+(lib.CachedBmp_18 = function() {
 	this.initialize(ss["index_atlas_"]);
 	this.gotoAndStop(3);
 }).prototype = p = new cjs.Sprite();
@@ -59,19 +59,18 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// shapes
-	this.instance = new lib.CachedTexturedBitmap_11();
-	this.instance.parent = this;
+	this.instance = new lib.CachedBmp_19();
 	this.instance.setTransform(-64,-64);
 
-	this.instance_1 = new lib.CachedTexturedBitmap_12();
-	this.instance_1.parent = this;
+	this.instance_1 = new lib.CachedBmp_20();
 	this.instance_1.setTransform(-64,-64);
 
-	this.instance_2 = new lib.CachedTexturedBitmap_13();
-	this.instance_2.parent = this;
+	this.instance_2 = new lib.CachedBmp_21();
 	this.instance_2.setTransform(-64,-64);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance}]}).to({state:[{t:this.instance_1}]},1).to({state:[{t:this.instance_2}]},1).wait(1));
+
+	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(-64,-64,128,128);
@@ -81,10 +80,11 @@ p.nominalBounds = new cjs.Rectangle(-64,-64,128,128);
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_1
-	this.instance = new lib.CachedTexturedBitmap_7();
-	this.instance.parent = this;
+	this.instance = new lib.CachedBmp_18();
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(0,0,960,540);
@@ -95,9 +95,10 @@ p.nominalBounds = new cjs.Rectangle(0,0,960,540);
 
 	// shape
 	this.instance = new lib.Shapes("single",2);
-	this.instance.parent = this;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	this._renderFirstFrame();
 
 }).prototype = getMCSymbolPrototype(lib.TriangleAnimation, new cjs.Rectangle(-64,-64,128,128), null);
 
@@ -118,11 +119,12 @@ p.nominalBounds = new cjs.Rectangle(0,0,960,540);
 
 	// shape
 	this.instance = new lib.Shapes("single",0);
-	this.instance.parent = this;
 	this.instance.setTransform(-544.05,0);
 	this.instance.alpha = 0;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).to({x:0,alpha:1},29,cjs.Ease.quintOut).wait(1));
+
+	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(-608,-64,672,128);
@@ -144,11 +146,12 @@ p.nominalBounds = new cjs.Rectangle(-608,-64,672,128);
 
 	// shape
 	this.instance = new lib.Shapes("single",1);
-	this.instance.parent = this;
 	this.instance.setTransform(0,-448.95);
 	this.instance.alpha = 0;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).to({y:0,alpha:1},29,cjs.Ease.backOut).wait(1));
+
+	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(-64,-512.9,128,621.6999999999999);
@@ -158,8 +161,15 @@ p.nominalBounds = new cjs.Rectangle(-64,-512.9,128,621.6999999999999);
 (lib.animate_cc_html5_canvas_animate_on_scroll = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
+	this.isSingleFrame = false;
 	// timeline functions:
 	this.frame_0 = function() {
+		if(this.isSingleFrame) {
+			return;
+		}
+		if(this.totalFrames == 1) {
+			this.isSingleFrame = true;
+		}
 		var root = this;
 		
 		root.startPlaying = function(target)
@@ -249,53 +259,46 @@ p.nominalBounds = new cjs.Rectangle(-64,-512.9,128,621.6999999999999);
 	// anims
 	this.triangle = new lib.TriangleAnimation();
 	this.triangle.name = "triangle";
-	this.triangle.parent = this;
 	this.triangle.setTransform(480,4320);
 
 	this.circle = new lib.CircleAnimation();
 	this.circle.name = "circle";
-	this.circle.parent = this;
 	this.circle.setTransform(480,2700);
 
 	this.square = new lib.SquareAnimation();
 	this.square.name = "square";
-	this.square.parent = this;
 	this.square.setTransform(480,1080);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.square},{t:this.circle},{t:this.triangle}]}).wait(1));
 
 	// background
 	this.instance = new lib.Background("single",0);
-	this.instance.parent = this;
 	this.instance.setTransform(0,5400);
 	this.instance.alpha = 0.1992;
 
 	this.instance_1 = new lib.Background("single",0);
-	this.instance_1.parent = this;
 	this.instance_1.setTransform(0,4320);
 	this.instance_1.alpha = 0.1992;
 
 	this.instance_2 = new lib.Background("single",0);
-	this.instance_2.parent = this;
 	this.instance_2.setTransform(0,3240);
 	this.instance_2.alpha = 0.1992;
 
 	this.instance_3 = new lib.Background("single",0);
-	this.instance_3.parent = this;
 	this.instance_3.setTransform(0,2160);
 	this.instance_3.alpha = 0.1992;
 
 	this.instance_4 = new lib.Background("single",0);
-	this.instance_4.parent = this;
 	this.instance_4.setTransform(0,1080);
 	this.instance_4.alpha = 0.1992;
 
 	this.instance_5 = new lib.Background("single",0);
-	this.instance_5.parent = this;
 	this.instance_5.setTransform(-0.05,0);
 	this.instance_5.alpha = 0.1992;
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_5},{t:this.instance_4},{t:this.instance_3},{t:this.instance_2},{t:this.instance_1},{t:this.instance}]}).wait(1));
+
+	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(352,2970,608,2970);
@@ -308,7 +311,7 @@ lib.properties = {
 	color: "#00CCCC",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/index_atlas_.png", id:"index_atlas_"}
+		{src:"images/index_atlas_.png?1584068399640", id:"index_atlas_"}
 	],
 	preloads: []
 };
@@ -319,7 +322,7 @@ lib.properties = {
 
 (lib.Stage = function(canvas) {
 	createjs.Stage.call(this, canvas);
-}).prototype = p = new createjs.Stage();
+}).prototype = p = new createjs.StageGL();
 
 p.setAutoPlay = function(autoPlay) {
 	this.tickEnabled = autoPlay;
@@ -347,7 +350,7 @@ an.bootstrapCallback=function(fnCallback) {
 
 an.compositions = an.compositions || {};
 an.compositions['3383E8FC715B0D41A43607953EA7270C'] = {
-	getStage: function() { return exportRoot.getStage(); },
+	getStage: function() { return exportRoot.stage; },
 	getLibrary: function() { return lib; },
 	getSpriteSheet: function() { return ss; },
 	getImages: function() { return img; }
