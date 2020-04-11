@@ -38,7 +38,7 @@
                 selectedItem.exportToFile(destination);
             }
         }
-        else
+        else if (selectedItem.itemType !== "folder")
             fl.trace(selectedItem + " is not a sound.");
     }
 }
