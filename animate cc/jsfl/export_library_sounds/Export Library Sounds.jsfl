@@ -29,7 +29,7 @@
             var extension = selectedItem.name.substr(-4);
             
             if (extensions.indexOf(extension) > -1)
-                destination = folder + "/" + selectedItem.name;
+                destination = folder + "/" + selectedItem.name.split("/").pop();
             else
                 destination = folder + "/" + selectedItem.name.split("/").pop() + ".wav";
             
