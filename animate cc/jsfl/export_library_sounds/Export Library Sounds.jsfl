@@ -33,7 +33,10 @@
             else
                 destination = folder + "/" + selectedItem.name.split("/").pop() + ".wav";
             
-            selectedItem.exportToFile(destination);            
+            if (!selectedItem.exportToFile(destination)) {
+                destination = folder + "/" + selectedItem.name.split("/").pop() + ".mp3";
+                selectedItem.exportToFile(destination);
+            }
         }
         else
             fl.trace(selectedItem + " is not a sound.");
