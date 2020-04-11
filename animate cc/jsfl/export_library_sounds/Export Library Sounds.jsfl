@@ -16,11 +16,8 @@
     
     var folder = fl.browseForFolderURL("Choose an output directory.");
     if (!folder)
-    {
-        alert("Invalid path.");
         return;
-    }
-    
+
     for (var i = 0, total = selectedItems.length; i < total; i++)
     {
         var selectedItem = selectedItems[i];
