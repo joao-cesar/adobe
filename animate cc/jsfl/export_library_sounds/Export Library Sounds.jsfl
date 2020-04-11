@@ -32,11 +32,22 @@
                 destination = folder + "/" + selectedItem.name.split("/").pop();
             else
                 destination = folder + "/" + selectedItem.name.split("/").pop() + ".wav";
+
+            var logMessage = selectedItem.name + " (type=" + selectedItem.originalCompressionType + ")";
             
-            if (!selectedItem.exportToFile(destination)) {
+            if (selectedItem.exportToFile(destination))
+                logMessage += " -> OK";
+            else
+            {
+                logMessage += " -> WAV export failed. Retrying " + selectedItem.name + " as MP3";
                 destination = folder + "/" + selectedItem.name.split("/").pop() + ".mp3";
-                selectedItem.exportToFile(destination);
+                if (selectedItem.exportToFile(destination))
+                    logMessage += " -> OK";
+                else
+                    logMessage += " -> failed";
             }
+            
+            fl.trace(logMessage);
         }
         else if (selectedItem.itemType !== "folder")
             fl.trace(selectedItem + " is not a sound.");
