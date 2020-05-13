@@ -754,7 +754,6 @@ p.nominalBounds = new cjs.Rectangle(-57,-44.5,114,89);
 				startPrefix: "dot",
 				endPrefix: "box",
 				totalDots: 3,
-				connectionsCount: 0,
 				strokeStyle: { color: "#39393B", thickness: 5 },
 				callbacks:
 				{
@@ -803,7 +802,6 @@ p.nominalBounds = new cjs.Rectangle(-57,-44.5,114,89);
 				startPrefix: "dot",
 				endPrefix: "box",
 				totalDots: 3,
-				connectionsCount: 0,
 				strokeStyle: { color: "#ffcc33", thickness: 2 },
 				callbacks:
 				{
@@ -843,7 +841,6 @@ p.nominalBounds = new cjs.Rectangle(-57,-44.5,114,89);
 				startPrefix: "dot",
 				endPrefix: "box",
 				totalDots: 4,
-				connectionsCount: 0,
 				strokeStyle: { color: "#ff3333", thickness: 8 },
 				callbacks:
 				{
