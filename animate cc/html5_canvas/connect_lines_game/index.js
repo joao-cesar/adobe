@@ -613,9 +613,9 @@ p.nominalBounds = new cjs.Rectangle(-57,-44.5,114,89);
 			root.ConnectLinesGame.prototype.pressUpHandler = function(e)
 			{
 				if (this.board.contains(e.target))
-				{			
+				{
 					var mouse = this.getMouse();
-					var target = this.board.getObjectsUnderPoint(mouse.x, mouse.y, 1)[1];
+					var target = this.board.getObjectsUnderPoint(mouse.x, mouse.y, 1)[0];
 						
 					if (target && target.name && target.name.indexOf(this.endPrefix) === 0 && target.name.replace(this.endPrefix, "") === this.dots[0].name.replace(this.startPrefix, ""))
 						this.onConnect(target);
@@ -661,7 +661,8 @@ p.nominalBounds = new cjs.Rectangle(-57,-44.5,114,89);
 			{	
 				this.prevX = x;
 				this.prevY = y;
-				this.lines.unshift(new createjs.Shape());	
+				this.lines.unshift(new createjs.Shape());
+				this.lines[0].mouseEnabled = false;
 				this.board.addChild(this.lines[0]);
 			};
 		
