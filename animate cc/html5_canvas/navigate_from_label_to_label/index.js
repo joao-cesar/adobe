@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"index_atlas_1", frames: [[403,0,40,80],[0,0,205,195],[207,196,271,135],[207,0,194,194],[0,197,191,191]]}
+		{name:"index_atlas_1", frames: [[403,0,40,80],[207,196,271,135],[0,0,205,195],[207,0,194,194],[0,197,191,191]]}
 ];
 
 
@@ -144,14 +144,14 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_4 = function() {
+(lib.CachedBmp_3 = function() {
 	this.initialize(ss["index_atlas_1"]);
 	this.gotoAndStop(1);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_3 = function() {
+(lib.CachedBmp_4 = function() {
 	this.initialize(ss["index_atlas_1"]);
 	this.gotoAndStop(2);
 }).prototype = p = new cjs.Sprite();
@@ -212,7 +212,7 @@ p.nominalBounds = new cjs.Rectangle(-9.9,-19.8,20,40);
 		this.clearAllSoundStreams();
 		 
 		var root = this;
-		var labels = root.getLabels();
+		var labels = root.labels;
 		var index = 0;
 		
 		root.start = function()
