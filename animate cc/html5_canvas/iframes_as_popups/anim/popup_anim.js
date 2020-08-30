@@ -110,14 +110,14 @@ if (reversed == null) { reversed = false; }
 
 	// Rec
 	this.instance = new lib.Rec("synched",0);
-	this.instance.setTransform(-347.15,0);
+	this.instance.setTransform(-158.15,0);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).to({x:347.1},59,cjs.Ease.quintInOut).to({x:-347.15},60,cjs.Ease.quintInOut).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).to({x:158},59,cjs.Ease.quintInOut).to({x:-158.15},60,cjs.Ease.quintInOut).wait(1));
 
 	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(-355.6,-26.5,711.3,53.1);
+p.nominalBounds = new cjs.Rectangle(-166.6,-26.5,333.2,53.1);
 
 
 // stage content:
@@ -157,26 +157,26 @@ if (reversed == null) { reversed = false; }
 	// closeButton
 	this.close = new lib.CloseButton();
 	this.close.name = "close";
-	this.close.setTransform(898,41);
+	this.close.setTransform(330,30);
 	new cjs.ButtonHelper(this.close, 0, 1, 2);
 
 	this.timeline.addTween(cjs.Tween.get(this.close).wait(1));
 
 	// anim
 	this.instance = new lib.Anim();
-	this.instance.setTransform(480,240);
+	this.instance.setTransform(180.05,180);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 	this._renderFirstFrame();
 
 }).prototype = p = new lib.AnMovieClip();
-p.nominalBounds = new cjs.Rectangle(604.4,264.4,310.20000000000005,2.2000000000000455);
+p.nominalBounds = new cjs.Rectangle(193.4,193.4,153.20000000000002,13.199999999999989);
 // library properties:
 lib.properties = {
 	id: '9E2010DBD9427049ACFD5A6C62E46791',
-	width: 960,
-	height: 480,
+	width: 360,
+	height: 360,
 	fps: 60,
 	color: "#1E1E1E",
 	opacity: 1.00,

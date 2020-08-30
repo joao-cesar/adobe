@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"popup_static_atlas_1", frames: [[0,0,1520,192]]}
+		{name:"popup_static_atlas_1", frames: [[0,0,412,372]]}
 ];
 
 
@@ -26,7 +26,7 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_2 = function() {
+(lib.CachedBmp_4 = function() {
 	this.initialize(ss["popup_static_atlas_1"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
@@ -46,10 +46,10 @@ if (reversed == null) { reversed = false; }
 
 	// Layer_1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#FFFFFF").ss(2,1,1).p("ACcAAQAABBguAtQgtAuhBAAQhAAAguguQgtgtAAhBQAAhAAtguQAugtBAAAQBBAAAtAtQAuAuAABAgABJBJIhJhIIBJhJAhIBJIBIhIIhIhJ");
+	this.shape.graphics.f().s("#FFFFFF").ss(2,1,1).p("ACcAAQAABBguAtQgtAuhBAAQhAAAguguQgtgtAAhBQAAhAAtguQAugtBAAAQBBAAAtAtQAuAuAABAgABJBJIhJhIIhIhJAhIBJIBIhIIBJhJ");
 
 	this.shape_1 = new cjs.Shape();
-	this.shape_1.graphics.f("#191919").s().p("AhuBuQgtgtAAhBQAAg/AtgvQAvgtA/AAQBBAAAtAtQAuAvAAA/QAABBguAtQgtAuhBAAQg/AAgvgugAAAABIBJBIIhJhIIBJhJIhJBJgAhIBJIBIhIIhIhJIBIBJg");
+	this.shape_1.graphics.f("#191919").s().p("AhuBuQgtgtAAhBQAAg/AtgvQAvgtA/AAQBBAAAtAtQAuAvAAA/QAABBguAtQgtAuhBAAQg/AAgvgugABJBJIhJhIIBJhJIhJBJIhIhJIBIBJIhIBIIBIhIgAAAABg");
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
 
@@ -119,26 +119,26 @@ if (reversed == null) { reversed = false; }
 	// closeButton
 	this.close = new lib.CloseButton();
 	this.close.name = "close";
-	this.close.setTransform(898,41);
+	this.close.setTransform(330,30);
 	new cjs.ButtonHelper(this.close, 0, 1, 2);
 
 	this.timeline.addTween(cjs.Tween.get(this.close).wait(1));
 
 	// shapes
-	this.instance = new lib.CachedBmp_2();
-	this.instance.setTransform(100.05,192,0.5,0.5);
+	this.instance = new lib.CachedBmp_4();
+	this.instance.setTransform(77,90.8,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 	this._renderFirstFrame();
 
 }).prototype = p = new lib.AnMovieClip();
-p.nominalBounds = new cjs.Rectangle(580.1,264.4,334.5,23.600000000000023);
+p.nominalBounds = new cjs.Rectangle(257,193.4,89.60000000000002,83.4);
 // library properties:
 lib.properties = {
 	id: '9E2010DBD9427049ACFD5A6C62E46791',
-	width: 960,
-	height: 480,
+	width: 360,
+	height: 360,
 	fps: 60,
 	color: "#1E1E1E",
 	opacity: 1.00,

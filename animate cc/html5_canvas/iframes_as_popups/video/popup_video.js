@@ -51,10 +51,10 @@ if (reversed == null) { reversed = false; }
 
 	// Layer_1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#FFFFFF").ss(2,1,1).p("ACcAAQAABBguAtQgtAuhBAAQhAAAguguQgtgtAAhBQAAhAAtguQAugtBAAAQBBAAAtAtQAuAuAABAgABJBJIhJhIIBJhJAhIBJIBIhIIhIhJ");
+	this.shape.graphics.f().s("#FFFFFF").ss(2,1,1).p("ACcAAQAABBguAtQgtAuhBAAQhAAAguguQgtgtAAhBQAAhAAtguQAugtBAAAQBBAAAtAtQAuAuAABAgABJBJIhJhIIhIhJAhIBJIBIhIIBJhJ");
 
 	this.shape_1 = new cjs.Shape();
-	this.shape_1.graphics.f("#191919").s().p("AhuBuQgtgtAAhBQAAg/AtgvQAvgtA/AAQBBAAAtAtQAuAvAAA/QAABBguAtQgtAuhBAAQg/AAgvgugAAAABIBJBIIhJhIIBJhJIhJBJgAhIBJIBIhIIhIhJIBIBJg");
+	this.shape_1.graphics.f("#191919").s().p("AhuBuQgtgtAAhBQAAg/AtgvQAvgtA/AAQBBAAAtAtQAuAvAAA/QAABBguAtQgtAuhBAAQg/AAgvgugABJBJIhJhIIBJhJIhJBJIhIhJIBIBJIhIBIIBIhIgAAAABg");
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
 
@@ -124,7 +124,7 @@ if (reversed == null) { reversed = false; }
 	// closeButton
 	this.close = new lib.CloseButton();
 	this.close.name = "close";
-	this.close.setTransform(898,41);
+	this.close.setTransform(330,30);
 	new cjs.ButtonHelper(this.close, 0, 1, 2);
 
 	this.timeline.addTween(cjs.Tween.get(this.close).wait(1));
@@ -133,19 +133,19 @@ if (reversed == null) { reversed = false; }
 	this.video0 = new lib.an_Video({'id': 'video0', 'src':'videos/Pexels%20Videos%202098989.mp4', 'autoplay':true, 'controls':true, 'muted':false, 'loop':true, 'poster':'', 'preload':true, 'class':'video'});
 
 	this.video0.name = "video0";
-	this.video0.setTransform(156.65,58.15,1.6175,1.2132,0,0,0,0.1,0.1);
+	this.video0.setTransform(19.6,89.8,0.8025,0.6019,0,0,0,0.1,0.1);
 
 	this.timeline.addTween(cjs.Tween.get(this.video0).wait(1));
 
 	this._renderFirstFrame();
 
 }).prototype = p = new lib.AnMovieClip();
-p.nominalBounds = new cjs.Rectangle(635.7,264.4,278.9,158.20000000000005);
+p.nominalBounds = new cjs.Rectangle(199.1,193.4,147.50000000000003,77.20000000000002);
 // library properties:
 lib.properties = {
 	id: '9E2010DBD9427049ACFD5A6C62E46791',
-	width: 960,
-	height: 480,
+	width: 360,
+	height: 360,
 	fps: 60,
 	color: "#1E1E1E",
 	opacity: 1.00,
