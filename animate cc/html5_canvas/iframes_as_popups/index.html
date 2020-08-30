@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        body
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            box-sizing: border-box;
+            background-color: rgb(245, 245, 245);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        iframe
+        {
+            display: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .active
+        {
+            display: block;
+        }
+
+        #buttons
+        {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        button
+        {
+            padding: 10px;
+            border: none;
+            font-size: 1rem;
+            color: rgb(255, 255, 255);
+            background-color: rgb(53, 53, 53);
+            transition: 0.4s;
+        }
+
+        button:hover, button:focus
+        {
+            outline: none;
+            background-color: rgb(221, 79, 69);
+        }  
+    </style>
+</head>
+<body>
+    <iframe id="popup" src="" frameborder="0" width="960" height="540" title="Animate Pop-Up"></iframe>
+    <div id="buttons">
+        <button id="anim" type="button">Animation Pop-Up</button>
+        <button id="static" type="button">Static Pop-Up</button>
+        <button id="video" type="button">Video Pop-Up</button>
+    </div>
+    <script>
+        const buttons = document.getElementById("buttons");
+        const popUp = document.getElementById("popup");
+
+        buttons.addEventListener("click", e =>
+        {
+            const id = e.target.id;
+
+            popUp.src = `${id}/popup_${id}.html`;
+            popUp.classList.add("active");
+        });
+
+        const close = e =>
+        {
+            popUp.src = "";
+            popUp.classList.remove("active");
+        };
+
+        window.document.addEventListener("close", close, false);
+    </script>
+</body>
+</html>
