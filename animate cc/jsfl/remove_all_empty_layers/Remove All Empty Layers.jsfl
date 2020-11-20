@@ -42,7 +42,7 @@ function searchTimeline(timeline)
 {
 	var layers = timeline.layers.reverse();
 	var count = 0;
-	var total, layer;
+	var i, total, layer;
 	
 	for (i = 0, total = layers.length; i < total; i++)
 	{
