@@ -41,9 +41,8 @@ function searchLibrary()
 function searchTimeline(timeline)
 {
 	var layers = timeline.layers.reverse();
-	var total = layers.length;
 	var count = 0;
-	var layer;
+	var total, layer;
 	
 	for (i = 0, total = layers.length; i < total; i++)
 	{
