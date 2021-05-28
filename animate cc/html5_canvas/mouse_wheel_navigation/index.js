@@ -107,7 +107,7 @@ if (reversed == null) { reversed = false; }
 		
 		root.targetTimeline = this;
 		root.targetTimeline.loop = true;
-		root.targetTimeline.force = 2;
+		root.targetTimeline.force = 1;
 		root.targetTimeline.friction = 0.8;
 		root.targetTimeline.direction = -1; // scroll direction
 		root.targetTimeline.minFrame = 0; // set the start range value here
