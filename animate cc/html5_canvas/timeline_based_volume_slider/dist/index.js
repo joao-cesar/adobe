@@ -350,12 +350,12 @@ if (reversed == null) { reversed = false; }
 		slider.gotoRatio = function(ratio)
 		{
 			if (ratio !== undefined)
-				slider.ratio = ratio;
+				this.ratio = ratio;
 				
-			slider.gotoAndStop(Math.floor(slider.totalFrames * slider.ratio));
+			this.gotoAndStop(Math.floor(this.totalFrames * this.ratio));
 			
-			if (slider.sound)
-				slider.sound.volume = slider.ratio;
+			if (this.sound)
+				this.sound.volume = this.ratio;
 		};
 		
 		slider.loop = false;
