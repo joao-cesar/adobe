@@ -310,12 +310,12 @@ if (reversed == null) { reversed = false; }
 		root.AudioPlayer.prototype.onClick = function(e)
 		{	
 			if (this.target.playPauseButton.contains(e.target))
-				this.toggle(e.target);
+				this.toggle();
 			else if (this.target.stopButton.contains(e.target))
 				this.stop();
 		};
 		
-		root.AudioPlayer.prototype.toggle = function(e)
+		root.AudioPlayer.prototype.toggle = function()
 		{
 			this.target.playPauseButton.gotoAndStop(this.target.playPauseButton.currentFrame + 1);
 				
@@ -333,7 +333,7 @@ if (reversed == null) { reversed = false; }
 			}
 		};
 		
-		root.AudioPlayer.prototype.stop = function(e)
+		root.AudioPlayer.prototype.stop = function()
 		{
 			if (this.sound)
 			{
