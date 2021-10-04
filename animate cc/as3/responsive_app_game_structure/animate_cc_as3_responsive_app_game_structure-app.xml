@@ -16,7 +16,7 @@
 	<text xml:lang="ja">Japanese App name goes here</text>
 	</name>
 -->
-<application xmlns="http://ns.adobe.com/air/application/30.0">
+<application xmlns="http://ns.adobe.com/air/application/33.1">
   <id>animate-cc-as3-responsive-app-game-structure</id>
   <versionNumber>1.0</versionNumber>
   <filename>animate_cc_as3_responsive_app_game_structure</filename>
