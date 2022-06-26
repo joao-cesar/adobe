@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--
+	NOTES:
+	1. All tokens are represented by '$' sign in the template.
+	2. You can write your code only wherever mentioned.
+	3. All occurrences of existing tokens will be replaced by their appropriate values.
+	4. Blank lines will be removed automatically.
+	5. Remove unnecessary comments before creating your template.
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="authoring-tool" content="Adobe_Animate_CC">
+<title>index</title>
+<!-- write your code here -->
+<style>
+  #animation_container, #_preload_div_ {
+	position:absolute;
+	margin:auto;
+	left:0;right:0;
+  }
+</style>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>
+function LoadGFonts(families, comp) {				
+	var lib=comp.getLibrary();				
+	var googleObject = {type: "Google", loadedFonts: 0, totalFonts: families.length, callOnLoad: lib.gfontAvailable};				
+	for(var i =0; i < families.length; i++)				
+		isFontAvailable(gFontsFamilies[i], googleObject);				
+}
+function isFontAvailable(font, obj) {				
+	var timeOut = 5000;				
+	var delay = 200;				
+	var interval = 0;				
+	var timeElapsed = 0;				
+	function checkFont() {				
+		var node = document.createElement("span");				
+		node.innerHTML = "giItT1WQy@!-/#";				
+		node.style.position      = "absolute";				
+		node.style.left          = "-1000px";				
+		node.style.top           = "-1000px";				
+		node.style.fontSize      = "300px";				
+		node.style.fontFamily    = "sans-serif";				
+		node.style.fontVariant   = "normal";				
+		node.style.fontStyle     = "normal";				
+		node.style.fontWeight    = "normal";				
+		node.style.letterSpacing = "0";				
+		document.body.appendChild(node);				
+		var width = node.offsetWidth;				
+		node.style.fontFamily = font+","+node.style.fontFamily;				
+		var returnVal = false;				
+		if((node && node.offsetWidth != width) || timeElapsed >=timeOut) {				
+			obj.loadedFonts++;				
+			if(interval)				
+				clearInterval(interval);				
+			obj.callOnLoad(font, obj.totalFonts);				
+			returnVal = true;				
+		}				
+		if(node) {				
+			node.parentNode.removeChild(node);				
+			node = null;				
+		}				
+		timeElapsed += delay;				
+		return returnVal;				
+	}				
+	if(!checkFont()) {				
+		interval = setInterval(checkFont, delay);				
+	}				
+}
+</script>
+<script>
+	var gFontsFamilies = ["Luckiest Guy"];
+</script>
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Luckiest+Guy:regular&subset=latin">
+<script src="index.js?1556637385345"></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("4D97E3D61B9F7842A071B43844298F2E");
+	var lib=comp.getLibrary();
+	try {
+		if(!(typeof gFontsFamilies === 'undefined' || gFontsFamilies === null))
+			LoadGFonts(gFontsFamilies, comp);		
+		if(!(typeof totalTypekitFonts === 'undefined' || totalTypekitFonts === null)) {			
+			var typekitObject = {type: 'Typekit', loadedFonts: 0, totalFonts: totalTypekitFonts, callOnLoad: lib.tfontAvailable};		
+			Typekit.load({
+			async: true,
+			'fontactive': function(family) {
+				isFontAvailable(family, typekitObject);
+				}
+			});
+		}
+	} catch(e) {};
+	var loader = new createjs.LoadQueue(false);
+	loader.installPlugin(createjs.Sound);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();	
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	var preloaderDiv = document.getElementById("_preload_div_");
+	preloaderDiv.style.display = 'none';
+	canvas.style.display = 'block';
+	exportRoot = new lib.super_bean_fighters();
+	stage = new lib.Stage(canvas);
+	stage.enableMouseOver();	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	AdobeAn.makeResponsive(true,'height',true,1,[canvas,preloaderDiv,anim_container,dom_overlay_container]);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+function playSound(id, loop) {
+	return createjs.Sound.play(id, createjs.Sound.INTERRUPT_EARLY, 0, 0, loop);
+}
+</script>
+<!-- write your code here -->
+</head>
+<body onload="init();" style="margin:0px;">
+	<div id="animation_container" style="background-color:rgba(242, 242, 242, 1.00); width:1334px; height:750px">
+		<canvas id="canvas" width="1334" height="750" style="position: absolute; display: none; background-color:rgba(242, 242, 242, 1.00);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1334px; height:750px; position: absolute; left: 0px; top: 0px; display: none;">
+		</div>
+	</div>
+    <div id='_preload_div_' style='position:absolute; top:0; left:0; display: inline-block; height:750px; width: 1334px; text-align: center;'>	<span style='display: inline-block; height: 100%; vertical-align: middle;'></span>	<img src=images/_preloader.gif?1556637385346 style='vertical-align: middle; max-height: 100%'/></div>
+</body>
+</html>

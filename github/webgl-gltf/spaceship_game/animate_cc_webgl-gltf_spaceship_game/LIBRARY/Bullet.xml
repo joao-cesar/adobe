@@ -1,0 +1,24 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Bullet" itemID="5bf60e59-0000038d" lastModified="1542938357">
+  <timeline>
+    <DOMTimeline name="Bullet" layerDepthEnabled="true">
+      <layers>
+        <DOMLayer name="Layer_1" color="#00FFFF" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMRectangleObject objectWidth="1.95" objectHeight="6.5" x="284.65" y="918.25" lockFlag="true">
+                  <matrix>
+                    <Matrix tx="-285.6" ty="-921.5"/>
+                  </matrix>
+                  <fill>
+                    <SolidColor color="#FFCC33"/>
+                  </fill>
+                </DOMRectangleObject>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

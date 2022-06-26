@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- 
+	Usage:
+
+	To localize the description, use the following format for the description element.
+	<description>
+	<text xml:lang="en">English App description goes here</text>
+	<text xml:lang="fr">French App description goes here</text>
+	<text xml:lang="ja">Japanese App description goes here</text>
+	</description>
+
+	To localize the name, use the following format for the name element.
+	<name>
+	<text xml:lang="en">English App name goes here</text>
+	<text xml:lang="fr">French App name goes here</text>
+	<text xml:lang="ja">Japanese App name goes here</text>
+	</name>
+-->
+<application xmlns="http://ns.adobe.com/air/application/28.0">
+  <id>Audio-Player</id>
+  <versionNumber>1.0</versionNumber>
+  <filename>Audio Player</filename>
+  <description/>
+  <name>Audio Player</name>
+  <copyright/>
+  <initialWindow>
+    <content>Audio%20Player.swf</content>
+    <systemChrome>standard</systemChrome>
+    <transparent>false</transparent>
+    <visible>true</visible>
+    <fullScreen>false</fullScreen>
+    <aspectRatio>portrait</aspectRatio>
+    <renderMode>auto</renderMode>
+    <maximizable>true</maximizable>
+    <minimizable>true</minimizable>
+    <resizable>true</resizable>
+  </initialWindow>
+  <icon>
+    <image16x16>icons/app_desktop_16.png</image16x16>
+    <image32x32>icons/app_desktop_32.png</image32x32>
+    <image48x48>icons/app_desktop_48.png</image48x48>
+    <image128x128>icons/app_desktop_128.png</image128x128>
+  </icon>
+  <customUpdateUI>false</customUpdateUI>
+  <allowBrowserInvocation>false</allowBrowserInvocation>
+</application>
