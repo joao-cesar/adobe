@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">drag_and_drop</string>
-    <string name="title_activity_main">drag_and_drop</string>
-    <string name="package_name">com.minifliper.draganddrop</string>
-    <string name="custom_url_scheme">com.minifliper.draganddrop</string>
-</resources>
