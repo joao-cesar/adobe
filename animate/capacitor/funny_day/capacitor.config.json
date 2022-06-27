@@ -1,0 +1,6 @@
+{
+  "appId": "com.minifliper.draganddrop",
+  "appName": "drag_and_drop",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

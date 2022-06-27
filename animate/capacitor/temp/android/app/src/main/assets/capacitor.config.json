@@ -1,0 +1,11 @@
+{
+	"appId": "com.minifliper.draganddrop",
+	"appName": "DragAndDrop",
+	"bundledWebRuntime": false,
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
+	}
+}
