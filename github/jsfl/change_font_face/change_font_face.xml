@@ -1,7 +1,0 @@
-﻿<dialog id="dialog"	title="Change Font Style" buttons="accept, cancel">		
-	<menulist id="faces" width="175">
-        <menupopup>
-            <menuitem/>
-        </menupopup>
-    </menulist>
-</dialog>
