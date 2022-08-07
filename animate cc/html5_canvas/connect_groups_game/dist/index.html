@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<!--
+	NOTES:
+	1. All tokens are represented by '$' sign in the template.
+	2. You can write your code only wherever mentioned.
+	3. All occurrences of existing tokens will be replaced by their appropriate values.
+	4. Blank lines will be removed automatically.
+	5. Remove unnecessary comments before creating your template.
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="authoring-tool" content="Adobe_Animate_CC">
+<title>index</title>
+<!-- write your code here -->
+<style>
+  #animation_container, #_preload_div_ {
+	position:absolute;
+	margin:auto;
+	left:0;right:0;
+	top:0;bottom:0;
+  }
+</style>
+<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+<script src="index.js"></script>
+<script>
+// Global Scripts
+	(function()
+{
+	function ConnectGroupsGame(props)
+	{
+		// read-only properties
+		this.__defineGetter__("acceptDragFrom", function() { return props.acceptDragFrom || [ 0, 1 ]; }); // tells which groups will accept drag
+		this.__defineGetter__("groups", function() { return props.groups; });
+		this.__defineGetter__("shuffleModes", function() { return props.shuffleModes || [ 0, 1 ]; }); // tells which groups will be shuffled
+		this.id = props.id;
+		this.callbacks = props.callbacks || {};
+		this.hitDistance = props.hitDistance || 48;
+		this.shuffleDuration = props.shuffleDuration || 350;
+		this.shuffleEase = props.shuffleEase || createjs.Ease.backInOut;
+		this.strokeStyle = props.strokeStyle;
+		this.callback("onSetup");
+		this.setup();
+	}
+	ConnectGroupsGame.prototype.setup = function(retainPositions)
+	{
+		var totalGroups = this.groups.length;
+		var totalDrag = this.acceptDragFrom.length;
+		var i, j, totalItems, index, item;
+		this.score = 0;
+		this.shapes = [];
+		if (!retainPositions)
+			this.positions = [];
+		for (i = 0; i < totalGroups; i++)
+		{
+			if (!retainPositions)
+				this.positions[i] = [];
+			totalItems = this.groups[i].length;
+			for (j = 0; j < totalItems; j++)
+			{
+				item = this.groups[i][j];
+				if (!item)
+					continue;
+				item.savedMouseChildren = item.mouseChildren;
+				item.mouseChildren = false;
+				item.group = i;
+				item.index = j;
+				if (!retainPositions)
+					this.positions[i][j] = { x: item.x, y: item.y };
+			}
+		}
+		for (i = 0; i < totalDrag; i++)
+		{
+			index = this.acceptDragFrom[i];
+			totalItems = this.groups[index].length;
+			for (j = 0; j < totalItems; j++)
+			{
+				item = this.groups[index][j];
+				if (!item)
+					continue;
+				item.mouseDown = item.on("mousedown", this.onMouseDown, this);
+				item.pressMove = item.on("pressmove", this.onPressMove, this);
+				item.pressUp = item.on("pressup", this.onPressUp, this);
+			}
+		}
+		this.shuffle();
+		this.callback("onReady");
+	};
+	ConnectGroupsGame.prototype.onMouseDown = function(e)
+	{		
+		this.createShape(e.currentTarget);
+		this.callback("onMouseDown", e);
+	};
+	ConnectGroupsGame.prototype.onPressMove = function(e)
+	{		
+		var pointerPos = this.getPointer(e.currentTarget);
+		this.drawLine(pointerPos.x, pointerPos.y);
+		this.callback("onPressMove", e);
+	};
+	ConnectGroupsGame.prototype.onPressUp = function(e)
+	{
+		this.checkCollision(e.currentTarget);
+		if (this.callbacks)
+			this.callback("onPressUp", e);
+	};
+	ConnectGroupsGame.prototype.createShape = function(target)
+	{
+		this.pressedPos = { x: target.x, y: target.y };
+		// in case the shape wasn't properly removed
+		if (this.shape && this.shape.stage && !this.shape.connected)
+		{
+			this.removeInstance(this.shape);
+			this.shape = null;
+		}
+		this.shape = new createjs.Shape();
+		this.shape.connected = false;
+		this.shape.mouseEnabled = false;
+		this.shape.mouseChildren = false;
+		target.parent.addChild(this.shape);
+		this.shape.graphics.setStrokeStyle(this.strokeStyle.thickness, this.strokeStyle.caps, this.strokeStyle.joints, this.strokeStyle.miterLimit, this.strokeStyle.ignoreScale);
+		this.shape.graphics.beginStroke(this.strokeStyle.color);
+		this.shape.graphics.moveTo(this.pressedPos.x, this.pressedPos.y);
+	};
+	ConnectGroupsGame.prototype.drawLine = function(x, y)
+	{
+		this.shape.graphics.clear();
+		this.shape.graphics.setStrokeStyle(this.strokeStyle.thickness, this.strokeStyle.caps, this.strokeStyle.joints, this.strokeStyle.miterLimit, this.strokeStyle.ignoreScale);
+		this.shape.graphics.beginStroke(this.strokeStyle.color);
+		this.shape.graphics.moveTo(this.pressedPos.x, this.pressedPos.y);
+		this.shape.graphics.lineTo(x === undefined ? this.pointerPos.x : x, y === undefined ? this.pointerPos.y : y);
+		this.shape.graphics.endStroke();
+		this.callback("onDrawingLine");
+	};
+	ConnectGroupsGame.prototype.checkCollision = function(target)
+    {
+		var distanceBetweenTwoPoints = function(x1, y1, x2, y2)
+		{
+			var dx = x1 - x2;
+			var dy = y1 - y2;
+			return Math.sqrt(dx * dx + dy * dy);
+		};
+		var dest = this.groups[target.group === 0 ? 1 : 0][target.index];
+		if (!dest)
+		{
+			this.removeInstance(this.shape);
+			this.callback("onMiss");
+			return;
+		}
+        this.pointerPos = this.getPointer(target);
+		if (distanceBetweenTwoPoints(this.pointerPos.x, this.pointerPos.y, dest.x, dest.y) <= this.hitDistance)
+		{
+			var group0Length = this.groups[0].filter(function(item){ return item !== null; }).length;
+			var group1Length = this.groups[1].filter(function(item){ return item !== null; }).length;
+			this.shape.connected = true;
+			this.shapes.push(this.shape);
+			this.deactivateItem(target);
+			this.deactivateItem(dest);
+			this.drawLine(dest.x, dest.y);
+			this.score++;
+			this.callback("onHit");
+			if (this.score === Math.min(group0Length, group1Length))
+			{
+				this.deactivateGroups();
+				this.callback("onWin");
+			}
+		}
+		else
+		{
+			this.removeInstance(this.shape);
+			this.callback("onMiss");
+		}
+    };
+	ConnectGroupsGame.prototype.shuffle = function()
+	{
+		var filter = function(item){ return item !== undefined && item !== null; };
+		var sort = function(a, b){ return 0.5 - Math.random(); };
+		var tempPositions = this.positions.slice(0);
+		var tempGroups = this.groups.slice(0);
+		var totalShuffles = this.shuffleModes.length;
+		var i, j, totalItems, index, item, pos;
+		for (i = 0; i < totalShuffles; i++)
+		{
+			index = this.shuffleModes[i];
+			tempPositions[index].sort(sort).filter(filter);
+			tempGroups[index] = tempGroups[index].filter(filter);
+			totalItems = tempGroups[index].length;
+			for (j = 0; j < totalItems; j++)
+			{
+				item = tempGroups[index][j];
+				if (!item)
+					return;
+				pos = tempPositions[index][j];
+				if (!pos)
+					continue;
+				createjs.Tween.get(item).to(pos, this.shuffleDuration, this.shuffleEase);
+			}
+		}
+		this.callback("onShuffle");
+	};
+	ConnectGroupsGame.prototype.getPointer = function(target)
+    {
+        return target.parent.globalToLocal(target.stage.mouseX, target.stage.mouseY);
+    };
+	ConnectGroupsGame.prototype.restart = function(retainPositions)
+	{
+		this.deactivateGroups();
+		this.removeShapes();
+		this.setup(retainPositions);
+		this.callback("onRestart");
+	};
+	ConnectGroupsGame.prototype.callback = function(name, e)
+	{
+		if (this.callbacks[name])
+			this.callbacks[name].call(this, e);
+	};
+	ConnectGroupsGame.prototype.removeInstance = function(target)
+	{
+		target.parent.removeChild(target);
+		target._off = true;
+	};
+	ConnectGroupsGame.prototype.deactivateGroups = function()
+	{
+		var totalGroups = this.groups.length;
+		var i, j, totalItems;
+		for (i = 0; i < totalGroups; i++)
+		{
+			totalItems = this.groups[i].length;
+			for (j = 0; j < totalItems; j++)
+			{
+				if (this.groups[i][j])
+					this.deactivateItem(this.groups[i][j]);
+			}
+		}
+	};
+	ConnectGroupsGame.prototype.deactivateItem = function(target)
+	{
+		target.mouseChildren = target.savedMouseChildren;
+		target.off("mousedown", target.mouseDown);
+		target.off("pressmove", target.pressMove);
+		target.off("pressup", target.pressUp);
+		delete target.group;
+		delete target.index;
+	};
+	ConnectGroupsGame.prototype.removeShapes = function()
+	{
+		var i;
+		for (i = this.shapes.length - 1; i > -1; i--)
+			this.removeInstance(this.shapes[i]);
+	};
+	ConnectGroupsGame.prototype.destroy = function()
+	{
+		this.callback("onBeforeDestroy");
+		this.deactivateGroups();
+		this.removeShapes();
+		delete this.acceptDragFrom;
+		delete this.groups;
+		delete this.hitDistance;
+		delete this.id;
+		delete this.pointerPos;
+		delete this.positions;
+		delete this.pressedPos;
+		delete this.score;
+		delete this.shapes;
+		delete this.shape;
+		delete this.shuffleEase;
+		delete this.shuffleDuration;
+		delete this.shuffleModes;
+		delete this.strokeStyle;
+		this.callback("onAfterDestroy");
+		delete this.callbacks;
+	};
+	window.games = { ConnectGroupsGame: ConnectGroupsGame };
+})();</script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("9C3DF53D8BA647D5B735E70E92D187F4");
+	var lib=comp.getLibrary();
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();	
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	var preloaderDiv = document.getElementById("_preload_div_");
+	preloaderDiv.style.display = 'none';
+	canvas.style.display = 'block';
+	exportRoot = new lib.html5_canvas_connect_groups_game();
+	stage = new lib.Stage(canvas);
+	stage.enableMouseOver();	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.framerate = lib.properties.fps;
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	AdobeAn.makeResponsive(true,'both',true,1,[canvas,preloaderDiv,anim_container,dom_overlay_container]);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+</script>
+<!-- write your code here -->
+</head>
+<body onload="init();" style="margin:0px;">
+	<div id="animation_container" style="background-color:rgba(102, 51, 204, 1.00); width:960px; height:540px">
+		<canvas id="canvas" width="960" height="540" style="position: absolute; display: none; background-color:rgba(102, 51, 204, 1.00);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:960px; height:540px; position: absolute; left: 0px; top: 0px; display: none;">
+		</div>
+	</div>
+    <div id='_preload_div_' style='position:absolute; top:0; left:0; display: inline-block; height:540px; width: 960px; text-align: center;'>	<span style='display: inline-block; height: 100%; vertical-align: middle;'></span>	<img src=images/_preloader.gif style='vertical-align: middle; max-height: 100%'/></div>
+</body>
+</html>
