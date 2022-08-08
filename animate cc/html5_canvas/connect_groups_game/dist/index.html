@@ -36,6 +36,7 @@
 		this.id = props.id;
 		this.callbacks = props.callbacks || {};
 		this.hitDistance = props.hitDistance || 48;
+		this.shuffleable = props.shuffleable;
 		this.shuffleDuration = props.shuffleDuration || 350;
 		this.shuffleEase = props.shuffleEase || createjs.Ease.backInOut;
 		this.strokeStyle = props.strokeStyle;
@@ -83,7 +84,8 @@
 				item.pressUp = item.on("pressup", this.onPressUp, this);
 			}
 		}
-		this.shuffle();
+		if (this.shuffleable)
+			this.shuffle();
 		this.callback("onReady");
 	};
 	ConnectGroupsGame.prototype.onMouseDown = function(e)

@@ -28,14 +28,14 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_2 = function() {
+(lib.CachedBmp_9 = function() {
 	this.initialize(ss["index_atlas_1"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_1 = function() {
+(lib.CachedBmp_8 = function() {
 	this.initialize(ss["index_atlas_2"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
@@ -120,10 +120,10 @@ if (reversed == null) { reversed = false; }
 	cjs.MovieClip.apply(this,[props]);
 
 	// Layer_1
-	this.instance = new lib.CachedBmp_2();
+	this.instance = new lib.CachedBmp_9();
 	this.instance.setTransform(-480,-270,0.5,0.5);
 
-	this.instance_1 = new lib.CachedBmp_1();
+	this.instance_1 = new lib.CachedBmp_8();
 	this.instance_1.setTransform(-488.55,-265.7,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_1},{t:this.instance}]}).wait(1));
@@ -282,12 +282,19 @@ if (reversed == null) { reversed = false; }
 	this.instance = new lib.Triangle("single",0);
 	this.instance.alpha = 0.8008;
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({alpha:1},0).wait(1).to({scaleX:0.9,scaleY:0.9},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({alpha:1},0).wait(1).to({scaleX:0.9,scaleY:0.9},0).to({_off:true},1).wait(1));
+
+	// hit
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#FF0000").s().p("AlnFoIAArPILPAAIAALPg");
+	this.shape._off = true;
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(3).to({_off:false},0).wait(1));
 
 	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(-16,-32,32,64);
+p.nominalBounds = new cjs.Rectangle(-36,-36,72,72);
 
 
 (lib.ArrowButton = function(mode,startPosition,loop,reversed) {
@@ -823,6 +830,7 @@ if (reversed == null) { reversed = false; }
 					[ root.board0.rec0, root.board0.rec1, root.board0.rec2 ],
 					[ root.board0.rec3, root.board0.rec4, root.board0.rec5 ]
 				],
+				shuffleable: true,
 				strokeStyle: root.strokeStyle,
 				callbacks: root.callbacks
 			});
@@ -835,6 +843,7 @@ if (reversed == null) { reversed = false; }
 					[ root.board1.rec0, root.board1.rec1, root.board1.rec2, root.board1.rec3 ],
 					[ root.board1.rec4, root.board1.rec5, root.board1.rec6, root.board1.rec7 ]
 				],
+				shuffleable: true,
 				strokeStyle: root.strokeStyle,
 				callbacks: root.callbacks
 			});
@@ -881,6 +890,7 @@ if (reversed == null) { reversed = false; }
 					[ root.board2.rec0 ],
 					[ root.board2.rec1 ]
 				],
+				shuffleable: true,
 				strokeStyle: root.strokeStyle,
 				callbacks: root.callbacks
 			});
@@ -893,6 +903,7 @@ if (reversed == null) { reversed = false; }
 					[ root.board3.rec0, root.board3.rec1 ],
 					[ root.board3.rec2, root.board3.rec3 ]
 				],
+				shuffleable: true,
 				strokeStyle: root.strokeStyle,
 				callbacks: root.callbacks
 			});
@@ -915,6 +926,7 @@ if (reversed == null) { reversed = false; }
 					[ root.board4.rec0, root.board4.rec1, root.board4.rec2, root.board4.rec3, root.board4.rec4 ],
 					[ root.board4.rec5, null, root.board4.rec6, null, root.board4.rec7 ]
 				],
+				shuffleable: true,
 				strokeStyle: root.strokeStyle,
 				callbacks: root.callbacks
 			});
@@ -927,6 +939,7 @@ if (reversed == null) { reversed = false; }
 					[ root.board5.rec0, root.board5.rec1 ],
 					[ root.board5.rec2 ]
 				],
+				shuffleable: true,
 				strokeStyle: root.strokeStyle,
 				callbacks: root.callbacks
 			});
@@ -949,6 +962,7 @@ if (reversed == null) { reversed = false; }
 					[ root.board6.rec0, root.board6.rec1, root.board6.rec2, root.board6.rec3 ],
 					[ root.board6.rec4, root.board6.rec5, root.board6.rec6, root.board6.rec7 ]
 				],
+				shuffleable: true,
 				strokeStyle: root.strokeStyle,
 				callbacks: root.callbacks
 			});
@@ -980,7 +994,7 @@ if (reversed == null) { reversed = false; }
 	this.prevButton.name = "prevButton";
 	this.prevButton.setTransform(45.3,270,1,1,0,0,180);
 	this.prevButton._off = true;
-	new cjs.ButtonHelper(this.prevButton, 0, 1, 2);
+	new cjs.ButtonHelper(this.prevButton, 0, 1, 2, false, new lib.NavButton(), 3);
 
 	this.timeline.addTween(cjs.Tween.get(this.prevButton).wait(1).to({_off:false},0).wait(3));
 
@@ -988,7 +1002,7 @@ if (reversed == null) { reversed = false; }
 	this.nextButton = new lib.NavButton();
 	this.nextButton.name = "nextButton";
 	this.nextButton.setTransform(914.75,270);
-	new cjs.ButtonHelper(this.nextButton, 0, 1, 2);
+	new cjs.ButtonHelper(this.nextButton, 0, 1, 2, false, new lib.NavButton(), 3);
 
 	this.timeline.addTween(cjs.Tween.get(this.nextButton).to({_off:true},3).wait(1));
 
