@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--
+	NOTES:
+	1. All tokens are represented by '$' sign in the template.
+	2. You can write your code only wherever mentioned.
+	3. All occurrences of existing tokens will be replaced by their appropriate values.
+	4. Blank lines will be removed automatically.
+	5. Remove unnecessary comments before creating your template.
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="authoring-tool" content="Adobe_Animate_CC">
+<title>index</title>
+<!-- write your code here -->
+<style>
+  #animation_container {
+	position:absolute;
+	margin:auto;
+	left:0;right:0;
+	top:0;bottom:0;
+  }
+</style>
+<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+<script src="index.js"></script>
+<script>
+// Global Scripts
+	(function()
+{
+	window.ui = {};
+	// text boxes
+	ui.TextBoxes = function(target)
+	{
+		this.target = target;
+		this.setBoundingBoxes();
+	}
+	ui.TextBoxes.prototype.setBoundingBoxes = function()
+	{
+		var originalText = this.target.text;
+		var originalMetrics = this.target.getMetrics();
+		var currentWidth = originalMetrics.width;
+		var lines = originalMetrics.lines;
+		var totalLines = lines.length;
+		var lettersWidthSum = 0;
+		var totalLinesLetters, letterMetrics, i, j;
+		var boundingBox = {};	
+		var alignOffset = this.getAlignmentOffset(this.target);
+		this.target.text = "";
+		this.target.boundingBoxes = [];
+		for (i = 0; i < totalLines; i++)
+		{
+			totalLinesLetters = lines[i].length;
+			lettersWidthSum = 0;
+			this.target.text = lines[i];
+			currentWidth = this.target.getMetrics().width;
+			for (j = 0; j < totalLinesLetters; j++)
+			{
+				this.target.text = lines[i][j];
+				letterMetrics = this.target.getMetrics();
+				boundingBox = this.drawBoundingBox(letterMetrics.width, letterMetrics.height);
+				boundingBox.x = this.target.x + lettersWidthSum - currentWidth * alignOffset;
+				boundingBox.y = this.target.y + letterMetrics.lineHeight * i;
+				boundingBox.setBounds(boundingBox.x, boundingBox.y, letterMetrics.width, letterMetrics.height);
+				boundingBox.alpha = 0.2;
+				boundingBox.tf = this.target;
+				this.target.parent.addChild(boundingBox);
+				lettersWidthSum += letterMetrics.width;
+				this.target.boundingBoxes.push(boundingBox);
+			}
+		}
+		this.target.text = originalText;
+	};
+	ui.TextBoxes.prototype.drawBoundingBox = function(width, height)
+	{
+		var shape = new createjs.Shape();
+		shape.graphics.beginFill("rgba(255,255,255,0.1)");
+		shape.graphics.beginStroke("rgba(255,255,255,1)");
+		shape.graphics.setStrokeStyle(1);
+		shape.graphics.drawRect(0, 0, width, height);
+		shape.graphics.endFill();
+		shape.graphics.endStroke();
+		return shape;
+	}
+	ui.TextBoxes.prototype.getAlignmentOffset = function()
+	{
+		if (this.target.textAlign === "left")
+			return 0;
+		if (this.target.textAlign === "center")
+			return 0.5;
+		if (this.target.textAlign === "right")
+			return 1;
+	};
+	ui.TextBoxes.prototype.destroy = function()
+	{
+		if (!this.target.boundingBoxes)
+			return;
+		this.target.boundingBoxes.forEach(function(boundingBox)
+		{
+			boundingBox.parent.removeChild(boundingBox);
+			boundingBox._off = true;
+		});
+		delete this.target.boundingBoxes;
+	};
+	// drag and drop
+	ui.DragAndDrop = function(target, callbacks)
+	{
+		this.target = target;
+		this.callbacks = callbacks || {};
+		this.mouseDownListener = this.target.on("mousedown", this.onMouseDown, this);
+		this.pressMoveListener = this.target.on("pressmove", this.onPressMove, this);
+		this.pressUpListener = this.target.on("pressup", this.onPressUp, this);
+	};
+	ui.DragAndDrop.prototype.onMouseDown = function(e)
+	{
+		var pointer = this.getPointer(this.target);
+		this.target.offset = { x: pointer.x - this.target.x, y: pointer.y - this.target.y };
+		this.target.parent.addChild(this.target);
+		if (this.callbacks.onMouseDown)
+			this.callbacks.onMouseDown.call(this);
+	};
+	ui.DragAndDrop.prototype.onPressMove = function(e)
+	{
+		var pointer = this.getPointer(this.target);
+		this.target.x = pointer.x - this.target.offset.x;
+		this.target.y = pointer.y - this.target.offset.y;
+		if (this.callbacks.onPressMove)
+			this.callbacks.onPressMove.call(this);
+	};
+	ui.DragAndDrop.prototype.onPressUp = function(e)
+	{		
+		if (this.callbacks.onPressUp)
+			this.callbacks.onPressUp.call(this);
+	};
+	ui.DragAndDrop.prototype.getPointer = function(target)
+	{
+		return target.parent.globalToLocal(target.stage.mouseX, target.stage.mouseY);
+	};
+	ui.DragAndDrop.prototype.destroy = function()
+	{
+		this.target.off("mousedown", this.mouseDownListener);
+		this.target.off("pressmove", this.pressMoveListener);
+		this.target.off("pressup", this.pressUpListener);	
+		delete this.target;
+		delete this.callbacks;
+	};
+})();</script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("FCD42E0A6709F1409591BD432AA625B1");
+	var lib=comp.getLibrary();
+	handleComplete({},comp);
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	exportRoot = new lib.htm5_canvas_drag_and_drop_on_letters();
+	stage = new lib.Stage(canvas);
+	stage.enableMouseOver();	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.framerate = lib.properties.fps;
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	AdobeAn.makeResponsive(true,'both',true,1,[canvas,anim_container,dom_overlay_container]);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+</script>
+<!-- write your code here -->
+</head>
+<body onload="init();" style="margin:0px;">
+	<div id="animation_container" style="background-color:rgba(129, 192, 20, 1.00); width:1920px; height:1080px">
+		<canvas id="canvas" width="1920" height="1080" style="position: absolute; display: block; background-color:rgba(129, 192, 20, 1.00);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:1080px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+	</div>
+</body>
+</html>
