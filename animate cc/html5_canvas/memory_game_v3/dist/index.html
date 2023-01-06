@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<!--
+	NOTES:
+	1. All tokens are represented by '$' sign in the template.
+	2. You can write your code only wherever mentioned.
+	3. All occurrences of existing tokens will be replaced by their appropriate values.
+	4. Blank lines will be removed automatically.
+	5. Remove unnecessary comments before creating your template.
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="authoring-tool" content="Adobe_Animate_CC">
+<title>index</title>
+<!-- write your code here -->
+<style>
+	:root
+	{
+		--background-color: #F8F8F8;
+	}
+	/* loader */
+	.lds-ripple
+	{
+		display: block;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 80px;
+		height: 80px;
+	}
+	.lds-ripple div
+	{
+		position: absolute;
+		border: 4px solid #000;
+		opacity: 1;
+		border-radius: 50%;
+		animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+	}
+	.lds-ripple div:nth-child(2)
+	{
+		animation-delay: -0.5s;
+	}
+	@keyframes lds-ripple
+	{
+		0%
+		{
+			top: 36px;
+			left: 36px;
+			width: 0;
+			height: 0;
+			opacity: 1;
+		}
+		100%
+		{
+			top: 0px;
+			left: 0px;
+			width: 72px;
+			height: 72px;
+			opacity: 0;
+		}
+	}
+</style>
+<style>
+  #animation_container {
+	position:absolute;
+	margin:auto;
+	left:0;right:0;
+	top:0;bottom:0;
+  }
+</style>
+<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+<script>
+function LoadGFonts(families, comp) {				
+	var lib=comp.getLibrary();				
+	var googleObject = {type: "Google", loadedFonts: 0, totalFonts: families.length, callOnLoad: lib.gfontAvailable};				
+	for(var i =0; i < families.length; i++)				
+		isFontAvailable(gFontsFamilies[i], googleObject);				
+}
+function isFontAvailable(font, obj) {				
+	var timeOut = 5000;				
+	var delay = 200;				
+	var interval = 0;				
+	var timeElapsed = 0;				
+	function checkFont() {				
+		var node = document.createElement("span");				
+		node.innerHTML = "giItT1WQy@!-/#";				
+		node.style.position      = "absolute";				
+		node.style.left          = "-1000px";				
+		node.style.top           = "-1000px";				
+		node.style.fontSize      = "300px";				
+		node.style.fontFamily    = "sans-serif";				
+		node.style.fontVariant   = "normal";				
+		node.style.fontStyle     = "normal";				
+		node.style.fontWeight    = "normal";				
+		node.style.letterSpacing = "0";				
+		document.body.appendChild(node);				
+		var width = node.offsetWidth;				
+		node.style.fontFamily = font+","+node.style.fontFamily;				
+		var returnVal = false;				
+		if((node && node.offsetWidth != width) || timeElapsed >=timeOut) {				
+			obj.loadedFonts++;				
+			if(interval)				
+				clearInterval(interval);				
+			obj.callOnLoad(font, obj.totalFonts);				
+			returnVal = true;				
+		}				
+		if(node) {				
+			node.parentNode.removeChild(node);				
+			node = null;				
+		}				
+		timeElapsed += delay;				
+		return returnVal;				
+	}				
+	if(!checkFont()) {				
+		interval = setInterval(checkFont, delay);				
+	}				
+}
+</script>
+<script>
+	var gFontsFamilies = ["Passion One"];
+</script>
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Passion+One:700&subset=latin">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Passion+One:regular&subset=latin">
+<script src="index.js"></script>
+<script>
+// Global Scripts
+	(function()
+{
+	// memory game
+	function MemoryGame(props)
+	{
+		this.cards = props.cards;
+		this.beforeMemorizeDelay = props.beforeMemorizeDelay || 1000;
+		this.memorizeDelay = props.memorizeDelay || 5000;
+		this.matchDelay = props.matchDelay || 500;
+		this.missDelay = props.missDelay || 2000;
+		this.winDelay = props.winDelay || 2000;
+		this.callbacks = props.callbacks || {};
+		this.selectedCards = [];
+		this.win = false;
+		this.beforeMemorizeTimeout = undefined;
+		this.memorizeTimeout = undefined;
+		this.pairTimeout = undefined;
+		this.target = undefined;
+		this.setup();
+		this.enableCards(false);
+		this.beforeMemorizeTimeout = setTimeout(this.memorize, this.beforeMemorizeDelay, this);
+	}
+	MemoryGame.prototype.setup = function()
+	{
+		var i, card;
+		var total = this.cards.length;
+		var faces = [];
+		var getRandomFaces = function()
+		{
+			var j;
+			var totalFaces = card.anim.faces.totalFrames;
+			var array = [];
+			for (j = 0; j < totalFaces; j++)
+				array[j] = j;
+			return array.sort(function(){ return Math.random() - 0.5; });
+		};
+		this.cards.sort(function(a, b){ return Math.random() - 0.5; });
+		for (i = 0; i < total; i++)
+		{
+			card = this.cards[i];
+			if (i === 0)
+				faces = getRandomFaces();
+			card.mouseChildren = false;
+			card.cursor = "pointer";
+			card.face = faces[Math.floor(i * 0.5)];
+			card.anim.gotoAndStop(1);
+			card.anim.faces.gotoAndStop(card.face);
+			card.correct = false;
+			card.clickEvent = card.on("click", this.onClick, this);
+		}
+		this.callback("onSetup");
+	};
+	MemoryGame.prototype.memorize = function(game)
+	{
+		game.enableCards(false);
+		game.flipAll();
+		game.memorizeTimeout = setTimeout(function(game)
+		{
+			game.enableCards(true);
+			game.flipAll();
+			game.callback("onStart");
+		}, game.memorizeDelay, game);
+		game.callback("onMemorize");
+	};
+	MemoryGame.prototype.onClick = function(e)
+	{		
+		this.target = e.currentTarget;
+		this.callback("onClick");
+		this.flip();
+		this.checkForPar();
+		this.target = null;
+	};
+	MemoryGame.prototype.enableCards = function(state)
+	{
+		var i, card;
+		var total = this.cards.length;
+		for (i = 0; i < total; i++)
+		{
+			card = this.cards[i];
+			card.mouseEnabled = card.correct ? false : state;
+		}
+	};
+	MemoryGame.prototype.flip = function()
+	{
+		if (this.selectedCards.indexOf(this.target) === -1)
+		{
+			this.target.anim.play();
+			this.target.anim.faces.gotoAndStop(this.target.face);
+			this.target.mouseEnabled = false;
+			this.selectedCards.push(this.target);
+			this.callback("onFlip");
+		}
+	};
+	MemoryGame.prototype.flipAll = function()
+	{
+		var i, card;
+		var total = this.cards.length;
+		for (i = 0; i < total; i++)
+		{
+			card = this.cards[i];
+			card.anim.play();
+			card.anim.faces.gotoAndStop(card.face);
+		}
+	};
+	MemoryGame.prototype.flipSelected = function()
+	{		
+		var i, card;
+		var total = this.selectedCards.length;
+		for (i = 0; i < total; i++)
+		{
+			card = this.selectedCards[i];
+			if (!card.correct)
+			{
+				card.anim.play();
+				card.anim.faces.gotoAndStop(card.face);
+			}
+		}
+	};
+	MemoryGame.prototype.checkForPar = function()
+	{
+		if (this.selectedCards.length === 2)
+		{
+			var isCorrect = this.selectedCards[0].face === this.selectedCards[1].face;
+			var getDelay = function()
+			{
+				if (isCorrect)
+					return this.win ? this.winDelay : this.matchDelay;
+				else
+					return this.missDelay;
+			};
+			this.enableCards(false);
+			if (isCorrect)
+			{
+				this.selectedCards[0].correct = true;
+				this.selectedCards[1].correct = true;
+				this.callback("onMatch");
+			}
+			else
+				this.callback("onMiss");
+			this.checkForWin();
+			this.pairTimeout = setTimeout(function(game)
+			{
+				game.flipSelected();
+				game.enableCards(true);
+				if (game.win)
+					game.callback("onWin");
+				game.selectedCards = [];
+			}, getDelay.call(this), this);
+			this.callback("onPair");
+		}
+	};
+	MemoryGame.prototype.checkForWin = function()
+	{
+		if (this.cards.every(function(card){ return card.correct; }))
+		{
+			this.win = true;
+			this.callback("onBeforeWin");
+		}
+	};
+	MemoryGame.prototype.callback = function(key)
+	{
+		if (this.callbacks[key])
+			this.callbacks[key].call(this);
+	};
+	MemoryGame.prototype.destroy = function()
+	{
+		var i, card;
+		var total = this.cards.length;
+		for (i = 0; i < total; i++)
+		{
+			card = this.cards[i];
+			card.mouseChildren = true;
+			card.cursor = "default";
+			card.off("click", card.clickEvent);
+			delete card.face;
+			delete card.correct;
+		}
+		clearTimeout(this.beforeMemorizeTimeout);
+		clearTimeout(this.memorizeTimeout);
+		clearTimeout(this.pairTimeout);
+		delete this.cards;
+		delete this.beforeMemorizeDelay;
+		delete this.memorizeDelay;
+		delete this.matchDelay;
+		delete this.missDelay;
+		delete this.winDelay;
+		delete this.callbacks;
+		delete this.selectedCards;
+		delete this.win;
+		delete this.beforeMemorizeTimeout;
+		delete this.memorizeTimeout;
+		delete this.pairTimeout;
+		delete this.target;
+	};
+	// timer
+	function Timer(props)
+	{
+		this.initialTime = props.initialTime;
+		this.callbacks = props.callbacks || {};
+		this.totalTime = this.initialTime;
+		this.currentTime = this.initialTime;
+		this.interval = 0;	
+	}
+	Timer.prototype.start = function()
+	{
+		clearInterval(this.interval);
+		this.totalTime = this.initialTime;
+		this.currentTime = this.totalTime;	
+		this.setTime();
+		this.callback("onStart");
+	};
+	Timer.prototype.setTime = function()
+	{	
+		this.interval = setInterval(function(timer)
+		{
+			timer.currentTime -= 1000;
+			timer.callback("onUpdate");
+			if (timer.currentTime == 0)
+			{			
+				clearInterval(timer.interval);
+				timer.callback("onFinish");
+			}			
+		}, 1000, this);
+	};
+	Timer.prototype.toTimecode = function(milliseconds)
+	{
+		var seconds = Math.floor((milliseconds / 1000) % 60);
+		var strSeconds = (seconds < 10) ? ("0" + String(seconds)) : String(seconds);
+		var minutes = Math.round(Math.floor((milliseconds / 1000) / 60));
+		var strMinutes = (minutes < 10) ? ("0" + String(minutes)) : String(minutes);
+		return { seconds: strSeconds, minutes: strMinutes };
+	};
+	Timer.prototype.callback = function(key)
+	{
+		if (this.callbacks[key])
+			this.callbacks[key].call(this);
+	};
+	Timer.prototype.destroy = function()
+	{
+		clearInterval(this.interval);
+		delete this.initialTime;
+		delete this.callbacks;
+		delete this.totalTime;
+		delete this.currentTime;
+		delete this.interval;
+	};
+	// sound
+	function Sound(){}
+	Sound.play = function(linkage, channel, stopPrevious, props)
+	{
+		if (stopPrevious && Sound.channels[channel])
+			Sound.channels[channel].stop();
+		Sound.channels[channel] = createjs.Sound.play(linkage, props);
+	};
+	Sound.stop = function(channel)
+	{
+		if (Sound.channels[channel])
+		{
+			Sound.channels[channel].stop();
+			delete Sound.channels[channel];
+		}
+	};
+	Sound.channels = {};
+	window.game = { MemoryGame: MemoryGame, Timer: Timer, Sound: Sound };
+})();</script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("FC643B0B3A4F44D9AEDF61053C8EE40A");
+	var lib=comp.getLibrary();
+	try {
+		if(!(typeof gFontsFamilies === 'undefined' || gFontsFamilies === null))
+			LoadGFonts(gFontsFamilies, comp);		
+		if(!(typeof totalTypekitFonts === 'undefined' || totalTypekitFonts === null)) {			
+			var typekitObject = {type: 'Typekit', loadedFonts: 0, totalFonts: totalTypekitFonts, callOnLoad: lib.tfontAvailable};		
+			Typekit.load({
+			async: true,
+			'fontactive': function(family) {
+				isFontAvailable(family, typekitObject);
+				}
+			});
+		}
+	} catch(e) {};
+	var loader = new createjs.LoadQueue(false);
+	loader.installPlugin(createjs.Sound);
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.html5_canvas_memory_game_v3();
+	stage = new lib.Stage(canvas);
+	stage.enableMouseOver();	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.framerate = lib.properties.fps;
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	AdobeAn.makeResponsive(true,'both',true,1,[canvas,anim_container,dom_overlay_container]);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+function playSound(id, loop, offset) {
+	return createjs.Sound.play(id, {'interrupt':createjs.Sound.INTERRUPT_EARLY, 'loop': loop, 'offset': offset});}
+</script>
+<!-- write your code here -->
+</head>
+<body onload="init();" style="margin:0px; background-color:var(--background-color);">
+	<div id="animation_container" style="background-color:var(--background-color); width:960px; height:540px">
+		<canvas id="canvas" width="960" height="540" style="position: absolute; display: block; background-color:var(--background-color);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:960px; height:540px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+	</div>
+	<div class="lds-ripple"><div></div><div></div></div>
+</body>
+</html>
