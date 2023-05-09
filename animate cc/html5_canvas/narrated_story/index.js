@@ -177,6 +177,9 @@ if (reversed == null) { reversed = false; }
 	this.actionFrames = [0,1,2,3,4,5];
 	// timeline functions:
 	this.frame_0 = function() {
+		// 2023/05/09: added a sounds property to the root so that multiple properties won't be created
+		// directly into the root
+		
 		var root = this;
 		
 		root.playSound = function(linkage, type, stopPrevious, props)
@@ -294,12 +297,12 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"sounds/Voice1.mp3?1683634815169", id:"Voice1"},
-		{src:"sounds/Voice3.mp3?1683634815169", id:"Voice3"},
-		{src:"sounds/Voice2.mp3?1683634815169", id:"Voice2"},
-		{src:"sounds/Voice0.mp3?1683634815169", id:"Voice0"},
-		{src:"sounds/BGM.mp3?1683634815169", id:"BGM"},
-		{src:"sounds/Voice4.mp3?1683634815169", id:"Voice4"}
+		{src:"sounds/Voice1.mp3?1683635387208", id:"Voice1"},
+		{src:"sounds/Voice3.mp3?1683635387208", id:"Voice3"},
+		{src:"sounds/Voice2.mp3?1683635387208", id:"Voice2"},
+		{src:"sounds/Voice0.mp3?1683635387208", id:"Voice0"},
+		{src:"sounds/BGM.mp3?1683635387208", id:"BGM"},
+		{src:"sounds/Voice4.mp3?1683635387208", id:"Voice4"}
 	],
 	preloads: []
 };
