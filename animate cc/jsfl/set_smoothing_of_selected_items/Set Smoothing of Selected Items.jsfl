@@ -2,8 +2,6 @@
 var lib = dom.library;
 var selectedItems = lib.getSelectedItems();
 
-fl.outputPanel.clear();
-
 function main()
 {	
 	if (!dom)
