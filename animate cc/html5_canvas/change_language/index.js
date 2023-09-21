@@ -87,6 +87,50 @@ if (reversed == null) { reversed = false; }
 p.nominalBounds = new cjs.Rectangle(-79.2,-47.2,158.5,94.5);
 
 
+(lib.Orange = function(mode,startPosition,loop,reversed) {
+if (loop == null) { loop = true; }
+if (reversed == null) { reversed = false; }
+	var props = new Object();
+	props.mode = mode;
+	props.startPosition = startPosition;
+	props.labels = {};
+	props.loop = loop;
+	props.reversed = reversed;
+	cjs.MovieClip.apply(this,[props]);
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#0F006C").ss(2,1,1).p("ACQncQAJhPgDhPIAeACIBRAEQgIBegVBYQBbApBMBMQClCmAADpQAADqilClQilCmjqAAQigAAiBhPQgVgNgUgPQgkgaghghQililAAjqQAAjpClimQB+h9ClgeQA1gKA3AAQBJAABDARQACAAACABgABVjoQANAFANAEQASAEAUACQA9AEBKgdABVjoQAjhfAQhgQAFgbADgaADom+QgJAlgLAkQgaBRglBLAgolfQA0BZBJAe");
+	this.shape.setTransform(1.3,-3.85);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#F76819").s().p("AipICQgtgLgqgTQgjgaghghQililAAjqQAAjpClimQB+h9ClgeQCFABBuA7QgQBggiBgQAMAFANADQATAFATACQAmhLAZhRQAZAUAYAXQCbCcAADaQAADbibCbQibCbjaAAQhFAAg+gPgADwkFQA3AAA/gZQg/AZg3AAIgBAAIAAAAIgNAAIgDAAIADAAIANAAIAAAAIABAAgACgkUQhKgeg1hZQA1BZBKAeg");
+	this.shape_1.setTransform(-6.125,0.575);
+
+	this.shape_2 = new cjs.Shape();
+	this.shape_2.graphics.f("#CF530E").s().p("AmVHmQgVgNgVgPQAqATAtALQA+AQBFgBQDbABCaicQCbiaAAjbQAAjbibibQgYgYgZgUQALgkAJgkQBbAoBMBNQCmClAADpQAADqimClQilCljpABQihAAiAhPgAjgoqQA0gKA4AAQBKAABBARIAEABIgIA1Qhtg8iGgBg");
+	this.shape_2.setTransform(12.975,3.15);
+
+	this.shape_3 = new cjs.Shape();
+	this.shape_3.graphics.f("#FF8005").s().p("AhKDJIAFgJQAfhXAQhXQAGgeAEgeQAKhSgDhSIBQAEQgIBegVBYQgJAkgLAkQgaBQgkBLQgUgBgSgFg");
+	this.shape_3.setTransform(19.9125,-46.4125);
+
+	this.shape_4 = new cjs.Shape();
+	this.shape_4.graphics.f("#FFC5A2").s().p("AgvDFQAjhgAPhgIAIg0QAJhPgDhOIAeABQADBSgKBSQgEAfgGAdQgQBXgeBXIgFAKQgNgDgNgFg");
+	this.shape_4.setTransform(14.6203,-46.7875);
+
+	this.shape_5 = new cjs.Shape();
+	this.shape_5.graphics.f("#F29714").s().p("AmQBqQilgsAAg+QAAg9ClgsQCngrDpAAQDqAACmArQCmAsAAA9QAAA+imAsQimArjqABQjpgBingrg");
+	this.shape_5.setTransform(-1.15,52.35);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_5},{t:this.shape_4},{t:this.shape_3},{t:this.shape_2},{t:this.shape_1},{t:this.shape}]}).wait(1));
+
+	this._renderFirstFrame();
+
+}).prototype = p = new cjs.MovieClip();
+p.nominalBounds = new cjs.Rectangle(-57.7,-68.3,116.5,135.6);
+
+
 (lib.Highlight = function(mode,startPosition,loop,reversed) {
 if (loop == null) { loop = true; }
 if (reversed == null) { reversed = false; }
@@ -177,6 +221,28 @@ if (reversed == null) { reversed = false; }
 p.nominalBounds = new cjs.Rectangle(-79.2,-47.2,158.5,94.5);
 
 
+(lib.OrangeButton = function(mode,startPosition,loop,reversed) {
+if (loop == null) { loop = true; }
+if (reversed == null) { reversed = false; }
+	var props = new Object();
+	props.mode = mode;
+	props.startPosition = startPosition;
+	props.labels = {};
+	props.loop = loop;
+	props.reversed = reversed;
+	cjs.MovieClip.apply(this,[props]);
+
+	// apple
+	this.instance = new lib.Orange("single",0);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(2).to({scaleX:0.95,scaleY:0.95},0).wait(1));
+
+	this._renderFirstFrame();
+
+}).prototype = p = new cjs.MovieClip();
+p.nominalBounds = new cjs.Rectangle(-57.7,-68.3,116.5,135.6);
+
+
 (lib.BrazilButton = function(mode,startPosition,loop,reversed) {
 if (loop == null) { loop = true; }
 if (reversed == null) { reversed = false; }
@@ -247,39 +313,34 @@ if (reversed == null) { reversed = false; }
 		var usButton = root.usButton;
 		var brButton = root.brButton;
 		var appleButton = root.appleButton;
+		var orangeButton = root.orangeButton;
 		var highlight = root.highlight;
-		var languages = [ "enUS", "ptBR" ];
-		var language = languages[0];
+		var languages = { EN_US: "EnUS", PT_BR: "PtBR" };
+		var language = languages.EN_US;
 		var voice;
 		
 		function main()
 		{
-			usButton.on("click", changeLanguage, null, false, { index: 0 });
-			brButton.on("click", changeLanguage, null, false, { index: 1 });
-			appleButton.on("click", playVoice);
+			document.body.style.backgroundColor = lib.properties.color;
+			usButton.on("click", changeLanguage, null, false, { lang: languages.EN_US });
+			brButton.on("click", changeLanguage, null, false, { lang: languages.PT_BR });
+			appleButton.on("click", playVoice, null, false, { voicePrefix: "Apple" });
+			orangeButton.on("click", playVoice, null, false, { voicePrefix: "Orange" });
 		}
 		
 		function changeLanguage(e, data)
 		{
-			language = languages[data.index];
+			language = data.lang;
 			highlight.x = e.currentTarget.x;
 			highlight.y = e.currentTarget.y;
 		}
 		
-		function playVoice()
+		function playVoice(e, data)
 		{
 			if (voice)
 				voice.stop();
-			
-			switch(language)
-			{
-				case languages[0]:
-					voice = playSound("AppleEnUS");
-					break;
-				case languages[1]:
-					voice = playSound("ApplePtBR");
-					break;
-			}
+				
+			voice = playSound(data.voicePrefix + language);
 		}
 		
 		main();
@@ -289,31 +350,36 @@ if (reversed == null) { reversed = false; }
 	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1));
 
 	// gui
+	this.orangeButton = new lib.OrangeButton();
+	this.orangeButton.name = "orangeButton";
+	this.orangeButton.setTransform(646.4,411.7);
+	new cjs.ButtonHelper(this.orangeButton, 0, 1, 2);
+
+	this.appleButton = new lib.AppleButton();
+	this.appleButton.name = "appleButton";
+	this.appleButton.setTransform(328.4,371.1);
+	new cjs.ButtonHelper(this.appleButton, 0, 1, 2);
+
 	this.brButton = new lib.BrazilButton();
 	this.brButton.name = "brButton";
-	this.brButton.setTransform(653.25,156.1);
+	this.brButton.setTransform(646.4,156.1);
 	new cjs.ButtonHelper(this.brButton, 0, 1, 2);
 
 	this.usButton = new lib.USButton();
 	this.usButton.name = "usButton";
-	this.usButton.setTransform(306.75,154.8);
+	this.usButton.setTransform(328.4,154.8);
 	new cjs.ButtonHelper(this.usButton, 0, 1, 2);
-
-	this.appleButton = new lib.AppleButton();
-	this.appleButton.name = "appleButton";
-	this.appleButton.setTransform(480,371.1);
-	new cjs.ButtonHelper(this.appleButton, 0, 1, 2);
 
 	this.highlight = new lib.Highlight();
 	this.highlight.name = "highlight";
-	this.highlight.setTransform(306.75,154.8);
+	this.highlight.setTransform(328.4,154.8);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.highlight},{t:this.appleButton},{t:this.usButton},{t:this.brButton}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.highlight},{t:this.usButton},{t:this.brButton},{t:this.appleButton},{t:this.orangeButton}]}).wait(1));
 
 	this._renderFirstFrame();
 
 }).prototype = p = new lib.AnMovieClip();
-p.nominalBounds = new cjs.Rectangle(691.8,364.8,40.700000000000045,114.19999999999999);
+p.nominalBounds = new cjs.Rectangle(713.4,364.8,12.300000000000068,114.19999999999999);
 // library properties:
 lib.properties = {
 	id: 'B6B1939D7A484E5AA71B43344BFFCEFD',
@@ -325,7 +391,9 @@ lib.properties = {
 	manifest: [
 		{src:"images/index_atlas_1.png", id:"index_atlas_1"},
 		{src:"sounds/AppleEnUS.mp3", id:"AppleEnUS"},
-		{src:"sounds/ApplePtBR.mp3", id:"ApplePtBR"}
+		{src:"sounds/ApplePtBR.mp3", id:"ApplePtBR"},
+		{src:"sounds/OrangeEnUS.mp3", id:"OrangeEnUS"},
+		{src:"sounds/OrangePtBR.mp3", id:"OrangePtBR"}
 	],
 	preloads: []
 };
