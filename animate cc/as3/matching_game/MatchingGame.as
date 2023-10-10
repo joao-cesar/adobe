@@ -29,6 +29,11 @@
 				
 		public function MatchingGame()
 		{
+			
+		}
+	
+		public function init():void
+		{
 			_createCards();
 			_setCards();
 			_randomizeCards();
