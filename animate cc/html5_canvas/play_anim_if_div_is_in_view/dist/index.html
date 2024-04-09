@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Anim if DIV is in View</title>
+    <style>
+        body
+        {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        #anim
+        {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 80%;
+            height: 100%;
+        }
+
+        #list
+        {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .thumb
+        {
+            width: 50vw;
+            max-width: 256px;
+            min-height: 196px;
+            background-color: rgb(39, 39, 227);
+        }
+
+        .thumb:hover
+        {
+            transform: scale(0.95);
+        }
+
+        #anim-thumb
+        {
+            background-color: rgb(16, 197, 100);
+        }
+    </style>
+</head>
+<body>
+    <iframe id="anim" src="anim.html" frameborder="0"></iframe>
+    <div id="list">
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div id="anim-thumb" class="thumb"></div>
+        <div class="thumb"></div>
+    </div>
+    <script>
+        var observer = new IntersectionObserver(function(entries)
+        {
+            const root = document.querySelector('#anim').contentWindow.exportRoot;
+
+            if (!root)
+                return;
+
+            if (entries[0].isIntersecting)
+                root.play();
+            else
+                root.stop();
+        });
+
+        observer.observe(document.querySelector("#anim-thumb"));
+    </script>
+</body>
+</html>
