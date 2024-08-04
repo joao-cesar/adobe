@@ -116,7 +116,7 @@ function onElementFound(element)
 {
 	if (element.elementType === "text")
 	{		
-		if (fl.isFontInstalled(element.getTextAttr("face")))
+		if (!fl.isFontInstalled(element.getTextAttr("face")))
 		{
 			element.setTextAttr("face", panel.faces);
 			foundTextsCount++;
